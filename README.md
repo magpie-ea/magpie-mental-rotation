@@ -1,6 +1,4 @@
 # Departure Point
 
-## 🚧👷🔨 
-
-
-
+## 🚧👷🔨
+UNDER CONSTRUCTION
