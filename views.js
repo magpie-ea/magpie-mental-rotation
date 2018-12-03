@@ -36,7 +36,7 @@ const instructions = babeViews.instructions({
             The practice trial view uses babe's <a href='https://github.com/babe-project/babe-project/blob/master/docs/images/views_samples/view_fc.png'>forced choice trial view</a>.
             <br />
             <br />
-            All the views that you see in this template are initialised in 'views.js' and the trial data in 'trials.js'`,
+            All the views that you see in this template are initialised in 'views.js'. The trial data in can be found in 'trials.js'`,
     buttonText: 'to the practice trial'
 });
 
@@ -46,9 +46,6 @@ const instructionsCanvas = babeViews.begin({
     name: 'instructions_canvas',
     title: 'Generate shapes',
     text:   `This is another instructions view.
-            <br />
-            <br />
-            The begin view informs the participant that the real experiment will begin.
             <br />
             <br />
             Next you will see a sample of a <a href='https://github.com/babe-project/babe-project/blob/master/docs/images/views_samples/view_dc.png'>dropwon choice view</a>
@@ -103,7 +100,7 @@ const instructionsHooks = babeViews.instructions({
             <br />
             <br />
             So far all the TTV ran functions that came with the babe package. However, there
-            is also an option to use custom events (define in your local files) and hook
+            is also an option to use custom events (defined by you) and hook them
             to a TTV.
             <br />
             <br />
@@ -127,8 +124,25 @@ const instructionsProgressbar = babeViews.instructions({
             use a progress bar</a> in your experiment with a simple configuration.
             <br />
             <br />
-            Next you will see a sample of 2 Self-paced Reading with progress bars in the top right corner.`,
+            Next you will see a sample Key Press task with progress bars in the top right corner.`,
     buttonText: 'Start progress bar sample'
+});
+
+
+// warns the real experiment will begin
+const instructionsSPR = babeViews.instructions({
+    trials: 1,
+    name: 'instructions_spr',
+    title: 'Self-paced reading tasks',
+    text:   `This is another instructions view.
+            <br />
+            <br />
+            Next you will see two sample Self-paced reading task
+            <br />
+            1. self-paced reading with forced choice response field.
+            <br />
+            2. self-paced reading with rating scale response field.`,
+    buttonText: 'Start the SPR tasks'
 });
 
 // the post questionnaire can be translated
@@ -249,7 +263,7 @@ const ratingScale = babeViews.ratingScale({
 });
 
 const keyPress = babeViews.keyPress({
-    trials: 2,
+    trials: 4,
     name: 'key_press',
     trial_type: 'key_press_main',
     data: main_trials.keyPress,

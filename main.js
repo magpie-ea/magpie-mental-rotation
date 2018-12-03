@@ -32,11 +32,12 @@ $("document").ready(function() {
             ratingScale,
 
             instructionsProgressbar,
+            keyPress,
+
             spr,
             sprRatingScale,
 
             thanks
-            // keyPress,
             // postTest,
         ],
         deploy: {
@@ -48,8 +49,7 @@ $("document").ready(function() {
         },
         progress_bar: {
             in: [
-                "spr",
-                "spr_rs"
+                "key_press"
             ],
             style: "chunks",
             width: 100

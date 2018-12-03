@@ -184,6 +184,7 @@ const main_trials = {
             key2: "j",
             f: "fine",
             j: "great",
+            question: "How are you today?",
             expected: "great"
         },
         {
@@ -203,20 +204,64 @@ const main_trials = {
                 elemSize: 30,
                 total: 15
             }
+        },
+        {
+            key1: "f",
+            key2: "j",
+            f: "triangles",
+            j: "circles",
+            expected: "circles",
+            question: "What's on the picture?",
+            canvas: {
+                focalColor: 'blue',
+                focalShape: 'circle',
+                focalNumber: 5,
+                otherShape: 'circle',
+                otherColor: 'red',
+                sort: 'random',
+                elemSize: 30,
+                total: 15
+            }
+        },
+        {
+            key1: "f",
+            key2: "j",
+            f: "triangles",
+            j: "circles",
+            expected: "circles",
+            question: "What's on the picture?",
+            canvas: {
+                focalColor: 'blue',
+                focalShape: 'circle',
+                focalNumber: 5,
+                otherShape: 'circle',
+                otherColor: 'red',
+                sort: 'random',
+                elemSize: 30,
+                total: 15
+            }
         }
     ],
     spr: [
         {
-            QUD: "Johnny says: 'I want you to bring me the box where ...",
-            question: "Should you bring Johnny this box or not?",
-            help_text: 'SPACEEEE',
+            QUD: "Press SPACE to hide the image.",
+            question: "Some of the squares are blue in the picture.",
             sentence: "all | of the | yellow marbles | are | inside | the case.'",
-            picture: "images/all-false3.png",
-            option1: "Bring it",
-            option2: "Leave it"
+            option1: "True",
+            option2: "False",
+            canvas: {
+                focalColor: 'blue',
+                focalShape: 'circle',
+                focalNumber: 13,
+                otherShape: 'square',
+                otherColor: 'red',
+                sort: 'random',
+                elemSize: 20,
+                total: 40
+            }
         },
         {
-            QUD: "Johnny says: 'I want you to bring me the box where ...",
+            QUD: "Press SPACE to hide the image.",
             sentence: "some | of the | black marbles | are | inside | the case.'",
             option1: "Bring it",
             helpText: 'Press Space',
