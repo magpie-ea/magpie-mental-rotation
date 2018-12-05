@@ -134,12 +134,14 @@ const main_trials = {
     ],
     ratingScale: [
         {
+            QUD: 'Press SPACE when you finish looking at the image.',
             picture: "images/question_mark_02.png",
             question: "Today I feel",
             optionLeft: "fine",
             optionRight: "great"
         },
         {
+            QUD: 'Press SPACE when you finish looking at the image.',
             optionLeft: "shiny",
             optionRight: "rainbow",
             picture: "images/question_mark_02.png"

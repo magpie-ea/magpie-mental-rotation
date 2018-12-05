@@ -1,15 +1,14 @@
-/** OTV (babe's Other Type Views) below
+/** Wrapping views below
 
 * Obligatory properties
 
-    - trials: int - the number of trials this view will appear
-    - name: string
+    * trials: int - the number of trials this view will appear
+    * name: string
 
-* All about the properties of OTV views - https://github.com/babe-project/babe-project/blob/master/docs/views.md#properties-of-otv
+* More about the properties and functions of the wrapping views - https://github.com/babe-project/babe-project/blob/master/docs/views.md#wrapping-views-properties
 
 */
 
-// welcomes the participant
 const intro = babeViews.intro({
     trials: 1,
     name: 'intro',
@@ -24,7 +23,6 @@ const intro = babeViews.intro({
     buttonText: 'begin the experiment'
 });
 
-// gives instructions about the experiment
 const instructions = babeViews.instructions({
     trials: 1,
     name: 'instrucions',
@@ -40,11 +38,10 @@ const instructions = babeViews.instructions({
     buttonText: 'to the practice trial'
 });
 
-// warns the real experiment will begin
 const instructionsCanvas = babeViews.begin({
     trials: 1,
     name: 'instructions_canvas',
-    title: 'Generate shapes',
+    title: 'Generate Shapes',
     text:   `This is another instructions view.
             <br />
             <br />
@@ -55,11 +52,10 @@ const instructionsCanvas = babeViews.begin({
     buttonText: 'Start the experiment'
 });
 
-// warns the real experiment will begin
 const instructionsLoop = babeViews.instructions({
     trials: 1,
     name: 'instructions_loop',
-    title: 'Loop through the views',
+    title: 'Loop Through The Views',
     text:   `This is another instructions view.
             <br />
             <br />
@@ -70,79 +66,93 @@ const instructionsLoop = babeViews.instructions({
     buttonText: 'Start the loop sample'
 });
 
-// warns the real experiment will begin
-const instructionsProcedure = babeViews.instructions({
+const instructionsLifecycle = babeViews.instructions({
     trials: 1,
-    name: 'instructions_procedure',
-    title: 'TTV procedure',
+    name: 'instructions_lifecycle',
+    title: 'Trial Lifecycle',
     text:   `This is another instructions view.
             <br />
             <br />
-            All the TTV so far showed the stimulus (if there were such), the question and expected the response from the participant at the moment of creation.
-            However, there is also an option to have a <b>pause</b> before the TTV shows, to <b>hide the stimulus</b> after certain amount of time and to have a <b>fixation point</b>
-            in the middle of the screen before the stimulus appears.
+            All the views so far showed the stimulus (in there was such), the question and expected a response at the moment of creation.
+            However, on the background all trial views in babe, go through a lifecycle of a:
             <br />
             <br />
-            Next you will see a slider rating task
-            that has a pause, fixation point and a hiding stimulus
+            <b>pause</b>
             <br />
-            and a textbox input task
-            that hides the stimulus on SPACE.`,
-    buttonText: 'Start TTV procedure sample'
+            <b>fixation point</b>
+            <br />
+            <b>stimulus shown</b>
+            <br />
+            <b>stimulus hidden (or not)</b>
+            <br />
+            <b>interactions enabled</b>
+            <br />
+            <br />
+            The views that you saw so far also went through these steps using the default lifecycle settings and everything in the trial views was shown at once.
+            <br />
+            <br />
+            Next you will see a <a href='https://github.com/babe-project/babe-project/blob/master/docs/images/views_samples/view_sr.png'>Slilder Rating task</a>
+            that has a pause of 500 ms, fixation point of 1000 ms and the stimulus appears on the screen for 1500 ms. After the stimulus hides, the response
+            form appears and the participant can answer the question.
+            <br />
+            <br />
+            After the rating scale task you will see a <a href='https://github.com/babe-project/babe-project/blob/master/docs/images/views_samples/view_ti.png'>t=Textbox Input task</a>
+            that has a pause of 500 ms and a stimulus that hides when 'SPACE' is pressed.`,
+    buttonText: 'Start trial lifecycle sample'
 });
 
-// warns the real experiment will begin
 const instructionsHooks = babeViews.instructions({
     trials: 1,
     name: 'instructions_hooks',
-    title: 'Hooks and Custom Events',
+    title: 'Hooks and Local Functions',
     text:   `This is another instructions view.
             <br />
             <br />
-            So far all the TTV ran functions that came with the babe package. However, there
-            is also an option to use custom events (defined by you) and hook them
-            to a TTV.
+            So far all the trial views called functions that came with the babe package. However, there
+            is also an option to use local functions (defined by you) and hook them
+            to a trial view.
             <br />
             <br />
             Next you will see a sample of a <a href='https://github.com/babe-project/babe-project/blob/master/docs/images/views_samples/view_rc.png'>Rating Scale task</a>
-            that uses a custom event to tell the participant how they answered after the interactions with the view are enabled.
+            that uses a locally defined functions to tell the participant how long they looked at the stimulus.
             <br />
             <br />
-            <a href='https://github.com/babe-project/babe-project/blob/master/docs/hooks.md'>babe hooks</a>`,
+            First, a function is hooked after the stimulus appears to record the time of showing the stimulus.
+            <br />
+            <br />
+            Then, a function is hooked after the stimulus hides to record the time when the stimulus disappears.`,
     buttonText: 'Start hooks sample'
 });
 
 // warns the real experiment will begin
-const instructionsProgressbar = babeViews.instructions({
+const instructionsProgressBar = babeViews.instructions({
     trials: 1,
-    name: 'instructions_pb',
-    title: 'Progres Bar',
-    text:   `This is another instructions view.
-            <br />
-            <br />
-            You can <a href='https://github.com/babe-project/babe-project#progress-bar'>
-            use a progress bar</a> in your experiment with a simple configuration.
-            <br />
-            <br />
-            Next you will see a sample Key Press task with progress bars in the top right corner.`,
-    buttonText: 'Start progress bar sample'
-});
-
-
-// warns the real experiment will begin
-const instructionsSPR = babeViews.instructions({
-    trials: 1,
-    name: 'instructions_spr',
-    title: 'Self-paced reading tasks',
+    name: 'instructions_progress_bar',
+    title: 'Self-paced reading tasks with a Progress Bar',
     text:   `This is another instructions view.
             <br />
             <br />
             Next you will see two sample Self-paced reading task
             <br />
-            1. self-paced reading with forced choice response field.
+            1. Self-paced reading with forced choice response field.
             <br />
-            2. self-paced reading with rating scale response field.`,
+            2. Self-paced reading with rating scale response field.
+            <br />
+            <br />
+            The trial views have a progress bar in the top right corner of the screen. You can <a href='https://github.com/babe-project/babe-project#progress-bar'>
+            use a progress bar</a> in your experiment with a simple configuration.`,
     buttonText: 'Start the SPR tasks'
+});
+
+const instructionsLast = babeViews.instructions({
+    trials: 1,
+    name: 'instructions_last',
+    title: 'Key Press',
+    text:   `This is another instructions view.
+            <br />
+            <br />
+            Next you will see a <a href='https://github.com/babe-project/babe-project/blob/master/docs/images/views_samples/view_kp.png'>Key Press task</a>.`,
+    buttonText: 'Start the key press task'
 });
 
 // the post questionnaire can be translated
@@ -173,7 +183,7 @@ const thanks = babeViews.thanks({
     prolificConfirmText: 'Press the button'
 });
 
-/** TTV (babe's Trial Type Views) below
+/** trial (babe's Trial Type Views) below
 
 * Obligatory properties
 
@@ -188,12 +198,12 @@ const thanks = babeViews.thanks({
     - pause: number (in ms) - blank screen before the fixation point or stimulus show
     - fix_duration: number (in ms) - blank screen with fixation point in the middle
     - stim_duration: number (in ms) - for how long to have the stimulus on the screen
-        More about TTV procedure - https://github.com/babe-project/babe-project/blob/master/docs/canvas.md
+        More about trial lifecycle - https://github.com/babe-project/babe-project/blob/master/docs/views.md#trial-views-lifecycle
 
     - hook: object - option to hook and add custom functions to the view   
-        More about hooks - https://github.com/babe-project/babe-project/blob/master/docs/hooks.md
+        More about hooks - https://github.com/babe-project/babe-project/blob/master/docs/views.md#trial-views-hooks
 
-* All about the properties of TTV - https://github.com/babe-project/babe-project/blob/master/docs/views.md#properties-of-ttv
+* All about the properties of trial - https://github.com/babe-project/babe-project/blob/master/docs/views.md#properties-of-trial
 
 */
 
@@ -234,10 +244,11 @@ const textboxInput = babeViews.textboxInput({
     name: 'textbox_input',
     trial_type: 'textbox_input_main',
     data: main_trials.textboxInput,
+    pause: 500,
     stim_duration: 'space'
 });
 
-// part of the TTV flow sample
+// part of the trial flow sample
 const sliderRating = babeViews.sliderRating({
     trials: 3,
     name: 'slider_rating',
@@ -254,11 +265,11 @@ const ratingScale = babeViews.ratingScale({
     name: 'rating_scale',
     trial_type: 'rating_scale_main',
     data: main_trials.ratingScale,
-    pause: 500,
-    fix_duration: 1000,
-    stim_duration: 1000,
+    fix_duration: 500,
+    stim_duration: 'space',
     hook: {
-        after_fix_point: myEvents.sayHello
+        after_stim_shown: myEvents.timeShown,
+        after_stim_hidden: myEvents.timeHidden
     }
 });
 
@@ -278,7 +289,7 @@ const spr = babeViews.selfPacedReading({
 
 const sprRatingScale = babeViews.selfPacedReading_ratingScale({
     trials: 2,
-    name: 'spr_rs',
+    name: 'spr_rating_scale',
     trial_type: 'spr_rs_main',
     data: main_trials.spr_rs,
 });

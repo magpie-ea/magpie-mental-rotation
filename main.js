@@ -24,19 +24,19 @@ $("document").ready(function() {
                 imageSelection
             ], 2),
 
-            instructionsProcedure,
+            instructionsLifecycle,
             sliderRating,
             textboxInput,
 
             instructionsHooks,
             ratingScale,
 
-            instructionsProgressbar,
-            keyPress,
-
+            instructionsProgressBar,
             spr,
             sprRatingScale,
 
+            instructionsLast,
+            keyPress,
             thanks
             // postTest,
         ],
@@ -49,7 +49,8 @@ $("document").ready(function() {
         },
         progress_bar: {
             in: [
-                "key_press"
+                "spr",
+                "spr_rating_scale"
             ],
             style: "chunks",
             width: 100

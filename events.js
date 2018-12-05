@@ -1,9 +1,15 @@
+let stimShown;
+let howLong;
+
 const myEvents = {
-    sayHello: function(data, next) {
-        console.log(data);
+    timeShown: function(data, next) {
+        stimShown = Date.now();
+        next();
+    },
 
-        window.alert("Hello from the local events! I come after the fixation point hides")
-
+    timeHidden: function(data, next) {
+        howLong = Date.now() - stimShown;
+        alert('You have been looking at the image for '.concat(howLong).concat('ms'));
         next();
     }
 };
