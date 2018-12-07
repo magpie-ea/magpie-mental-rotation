@@ -179,78 +179,154 @@ const main_trials = {
             picture2: "images/question_mark_04.png"
         }
     ],
-    keyPress: [
-        {
-            picture: "images/question_mark_02.png",
-            key1: "f",
-            key2: "j",
-            f: "fine",
-            j: "great",
-            question: "How are you today?",
-            expected: "great"
-        },
-        {
-            key1: "f",
-            key2: "j",
-            f: "squares",
-            j: "circles",
-            expected: "circles",
-            question: "What's on the picture?",
-            canvas: {
-                focalColor: 'blue',
-                focalShape: 'circle',
-                focalNumber: 5,
-                otherShape: 'circle',
-                otherColor: 'red',
-                sort: 'random',
-                elemSize: 30,
-                total: 15
+    keyPress: {
+
+        practice: [
+            {
+                key1: "f",
+                key2: "j",
+                f: "circle",
+                j: "square",
+                expected: "circle",
+                canvas: {
+                    focalColor: 'blue',
+                    focalShape: 'circle',
+                    focalNumber: 1,
+                    sort: 'random',
+                    elemSize: 100,
+                    total: 1
+                }
+            },
+            {
+                key1: "f",
+                key2: "j",
+                f: "circle",
+                j: "square",
+                expected: "square",
+                canvas: {
+                    focalColor: 'green',
+                    focalShape: 'square',
+                    focalNumber: 1,
+                    sort: 'random',
+                    elemSize: 100,
+                    total: 1
+                }
+            },
+            {
+                key1: "f",
+                key2: "j",
+                f: "circle",
+                j: "square",
+                expected: "square",
+                canvas: {
+                    focalColor: 'blue',
+                    focalShape: 'square',
+                    focalNumber: 1,
+                    sort: 'random',
+                    elemSize: 100,
+                    total: 1
+                }
+            },
+            {
+                key1: "f",
+                key2: "j",
+                f: "circle",
+                j: "square",
+                expected: "circle",
+                canvas: {
+                    focalColor: 'red',
+                    focalShape: 'circle',
+                    focalNumber: 1,
+                    sort: 'random',
+                    elemSize: 100,
+                    total: 1
+                }
             }
-        },
-        {
-            key1: "f",
-            key2: "j",
-            f: "triangles",
-            j: "circles",
-            expected: "circles",
-            question: "What's on the picture?",
-            canvas: {
-                focalColor: 'blue',
-                focalShape: 'circle',
-                focalNumber: 5,
-                otherShape: 'circle',
-                otherColor: 'red',
-                sort: 'random',
-                elemSize: 30,
-                total: 15
+        ],
+        main: [
+            {
+                key1: "f",
+                key2: "j",
+                f: "circle",
+                j: "square",
+                expected: "circle",
+                canvas: {
+                    focalColor: 'red',
+                    focalShape: 'circle',
+                    focalNumber: 1,
+                    sort: 'random',
+                    elemSize: 100,
+                    total: 1
+                }
+            },
+            {
+                key1: "f",
+                key2: "j",
+                f: "circle",
+                j: "square",
+                expected: "square",
+                canvas: {
+                    focalColor: 'green',
+                    focalShape: 'square',
+                    focalNumber: 1,
+                    sort: 'random',
+                    elemSize: 100,
+                    total: 1
+                }
+            },
+            {
+                key1: "f",
+                key2: "j",
+                f: "circle",
+                j: "square",
+                expected: "circle",
+                canvas: {
+                    focalColor: 'blue',
+                    focalShape: 'circle',
+                    focalNumber: 1,
+                    sort: 'random',
+                    elemSize: 100,
+                    total: 1
+                }
+            },
+            {
+                key1: "f",
+                key2: "j",
+                f: "circle",
+                j: "square",
+                expected: "square",
+                canvas: {
+                    focalColor: 'red',
+                    focalShape: 'square',
+                    focalNumber: 1,
+                    sort: 'random',
+                    elemSize: 100,
+                    total: 1
+                }
+            },
+            {
+                key1: "f",
+                key2: "j",
+                f: "circle",
+                j: "square",
+                expected: "circle",
+                canvas: {
+                    focalColor: 'red',
+                    focalShape: 'circle',
+                    focalNumber: 1,
+                    sort: 'random',
+                    elemSize: 100,
+                    total: 1
+                }
             }
-        },
-        {
-            key1: "f",
-            key2: "j",
-            f: "triangles",
-            j: "circles",
-            expected: "circles",
-            question: "What's on the picture?",
-            canvas: {
-                focalColor: 'blue',
-                focalShape: 'circle',
-                focalNumber: 5,
-                otherShape: 'circle',
-                otherColor: 'red',
-                sort: 'random',
-                elemSize: 30,
-                total: 15
-            }
-        }
-    ],
+        ]
+    },
     spr: [
         {
-            QUD: "Press SPACE to hide the image.",
-            question: "Some of the squares are blue in the picture.",
-            sentence: "all | of the | yellow marbles | are | inside | the case.'",
-            option1: "True",
-            option2: "False",
+            question: "Does the sentence correctly describe the image?",
+            sentence: "all | the squares | are | red | the in the picture.",
+            option1: "Yes",
+            option2: "No",
             canvas: {
                 focalColor: 'blue',
                 focalShape: 'circle',
@@ -259,73 +335,73 @@ const main_trials = {
                 otherColor: 'red',
                 sort: 'random',
                 elemSize: 20,
+                total: 30
+            }
+        },
+        {
+            question: "Does the sentence correctly describe the image?",
+            sentence: "all | the triangles | are | green | in the picture.",
+            option1: "Yes",
+            helpText: 'Press Space (this text can be set)',
+            option2: "No",
+            canvas: {
+                focalColor: 'green',
+                focalShape: 'triangle',
+                focalNumber: 10,
+                otherShape: 'square',
+                otherColor: 'green',
+                sort: 'random',
+                elemSize: 30,
+                total: 30
+            }
+        },
+        {
+            question: "Does the sentence correctly describe the image?",
+            sentence: "some | squares | are | red | in the picture.",
+            option1: "Yes",
+            helpText: 'Press Space (this text can be changed)',
+            option2: "No",
+            canvas: {
+                focalColor: 'green',
+                focalShape: 'square',
+                focalNumber: 35,
+                otherShape: 'square',
+                otherColor: 'red',
+                sort: 'random',
+                elemSize: 20,
                 total: 40
             }
         },
         {
-            QUD: "Press SPACE to hide the image.",
-            sentence: "some | of the | black marbles | are | inside | the case.'",
-            option1: "Bring it",
-            helpText: 'Press Space',
-            option2: "Leave it"
-        },
-        {
-            QUD: "Johnny says:: 'I want you to bring me the box where ...",
-            sentence: "some | of the | black marbles | are | inside | the case.'",
-            option1: "Bring it",
-            picture: "images/all-false3.png",
-            option2: "Leave it"
-        },
-        {
-            question: "Should you bring Johnny this box or not?",
-            QUD: "Johnny says: 'I want you to bring me the box where ...",
-            sentence: "some | of the | yellow marbles | are | inside | the case.'",
-            option1: "Bring it",
-            option2: "Leave it",
+            QUD: "You can have some text here",
+            question: "Does the sentence correctly describe the image?",
+            sentence: "some | squares | are | red | in the picture.",
+            option1: "Yes",
+            option2: "No",
             canvas: {
-                focalColor: 'black',
-                focalShape: 'circle',
-                focalNumber: 13,
-                otherShape: 'square',
+                focalColor: 'green',
+                focalShape: 'square',
+                focalNumber: 5,
+                otherShape: 'circle',
                 otherColor: 'red',
                 sort: 'random',
-                elemSize: 30,
-                total: 20
+                elemSize: 40,
+                total: 10
             }
-        }
+        },
     ],
     spr_rs: [
         {
-            QUD: "cjdbvhdfjsays: 'I want you to bring me the box where ...",
-            sentence: "some | of the | black marbles | are | inside | the case.'",
-            optionLeft: "Bring it",
-            picture: "images/all-false3.png",
-            optionRight: "Leave it"
+            sentence: "Today | I | feel | great.",
+            optionLeft: "Yes",
+            picture: "images/question_mark_02.png",
+            optionRight: "No"
         },
         {
-            question: "Should you bring Johnny this box or not?",
-            QUD: "Johnny says: 'I want you to bring me the box where ...",
-            sentence: "some | of the | yellow marbles | are | inside | the case.'",
-            optionLeft: "Bring it",
-            optionRight: "Leave it",
-            canvas: {
-                focalColor: 'black',
-                focalShape: 'circle',
-                focalNumber: 23,
-                otherShape: 'square',
-                otherColor: 'red',
-                sort: 'random',
-                elemSize: 30,
-                total: 20
-            }
-        },
-        {
-            question: "Should you bring Johnny this box or not?",
-            QUD: "Johnny says: 'I want you to bring me the box where ...",
-            sentence: "all | of the | black marbles | are | inside | the case.'",
-            option1: "Bring it",
-            option2: "Leave it",
-            picture: "images/all-unbias3.png"
+            sentence: "The weather | is | shiny | today.",
+            optionLeft: "True",
+            optionRight: "False",
+            picture2: "images/question_mark_01.png"
         }
     ],
 }

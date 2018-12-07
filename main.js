@@ -35,10 +35,16 @@ $("document").ready(function() {
             spr,
             sprRatingScale,
 
-            instructionsLast,
-            keyPress,
-            thanks
-            // postTest,
+            instructionsExperiment,
+            keyPressPractice,
+            beginRealKeyPress,
+            keyPressMain,
+
+            instructionsPostTest,
+            postTest,
+
+            links,
+            thanks,
         ],
         deploy: {
             experimentID: "4",
@@ -50,9 +56,10 @@ $("document").ready(function() {
         progress_bar: {
             in: [
                 "spr",
-                "spr_rating_scale"
+                "spr_rating_scale",
+                "key_press_main"
             ],
-            style: "chunks",
+            style: "separate",
             width: 100
         }
     });

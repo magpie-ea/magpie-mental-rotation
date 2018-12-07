@@ -19,7 +19,7 @@ const intro = babeViews.intro({
             about the experiment.
             <br />
             <br />
-            This template is a showcase of the functionality of babe.`,
+            This mock up experiment is a showcase of the functionality of babe.`,
     buttonText: 'begin the experiment'
 });
 
@@ -31,10 +31,7 @@ const instructions = babeViews.instructions({
             <br />
             <br />
             First you will go through a pracice trial session which consists of two trials.
-            The practice trial view uses babe's <a href='https://github.com/babe-project/babe-project/blob/master/docs/images/views_samples/view_fc.png'>forced choice trial view</a>.
-            <br />
-            <br />
-            All the views that you see in this template are initialised in 'views.js'. The trial data in can be found in 'trials.js'`,
+            The practice trial view uses babe's <a href='https://github.com/babe-project/babe-project/blob/master/docs/images/views_samples/view_fc.png'>forced choice trial view</a>.`,
     buttonText: 'to the practice trial'
 });
 
@@ -60,7 +57,7 @@ const instructionsLoop = babeViews.instructions({
             <br />
             <br />
             Next you will see a sample of looping through <a href='https://github.com/babe-project/babe-project/blob/master/docs/images/views_samples/view_ss.png'>sentence choice</a>
-            and <a href='https://github.com/babe-project/babe-project/blob/master/docs/images/views_samples/view_ss.png'>image seleciton</a> views twice.
+            and <a href='https://github.com/babe-project/babe-project/blob/master/docs/images/views_samples/view_ss.png'>image seleciton</a> task twice.
             <br />
             <br />`,
     buttonText: 'Start the loop sample'
@@ -73,7 +70,7 @@ const instructionsLifecycle = babeViews.instructions({
     text:   `This is another instructions view.
             <br />
             <br />
-            All the views so far showed the stimulus (in there was such), the question and expected a response at the moment of creation.
+            All the views so far showed the stimulus (if there was such), the question and expected a response at the moment of creation.
             However, on the background all trial views in babe, go through a lifecycle of a:
             <br />
             <br />
@@ -96,7 +93,7 @@ const instructionsLifecycle = babeViews.instructions({
             form appears and the participant can answer the question.
             <br />
             <br />
-            After the rating scale task you will see a <a href='https://github.com/babe-project/babe-project/blob/master/docs/images/views_samples/view_ti.png'>t=Textbox Input task</a>
+            After the rating scale task you will see a <a href='https://github.com/babe-project/babe-project/blob/master/docs/images/views_samples/view_ti.png'>Textbox Input task</a>
             that has a pause of 500 ms and a stimulus that hides when 'SPACE' is pressed.`,
     buttonText: 'Start trial lifecycle sample'
 });
@@ -117,10 +114,11 @@ const instructionsHooks = babeViews.instructions({
             that uses a locally defined functions to tell the participant how long they looked at the stimulus.
             <br />
             <br />
-            First, a function is hooked after the stimulus appears to record the time of showing the stimulus.
+            First, a function is hooked after the stimulus appears to timestamp the time the stimulus appears.
             <br />
             <br />
-            Then, a function is hooked after the stimulus hides to record the time when the stimulus disappears.`,
+            Then, a function is hooked after the stimulus hides to record the time when the stimulus disappears, calculate the time spent and
+            show the participant the calculation.`,
     buttonText: 'Start hooks sample'
 });
 
@@ -134,9 +132,11 @@ const instructionsProgressBar = babeViews.instructions({
             <br />
             Next you will see two sample Self-paced reading task
             <br />
-            1. Self-paced reading with forced choice response field.
+            1. <a href='https://github.com/babe-project/babe-project/blob/master/docs/views.md#self-paced-reading-with-forced-choice-response'>
+            Self-paced reading with forced choice response task</a>
             <br />
-            2. Self-paced reading with rating scale response field.
+            2. <a href='https://github.com/babe-project/babe-project/blob/master/docs/views.md#self-paced-reading-task-with-rating-scale-response'>
+            Self-paced reading with rating scale response task</a>
             <br />
             <br />
             The trial views have a progress bar in the top right corner of the screen. You can <a href='https://github.com/babe-project/babe-project#progress-bar'>
@@ -144,15 +144,44 @@ const instructionsProgressBar = babeViews.instructions({
     buttonText: 'Start the SPR tasks'
 });
 
-const instructionsLast = babeViews.instructions({
+const instructionsExperiment = babeViews.instructions({
     trials: 1,
-    name: 'instructions_last',
+    name: 'instructions_experiment',
     title: 'Key Press',
     text:   `This is another instructions view.
             <br />
             <br />
-            Next you will see a <a href='https://github.com/babe-project/babe-project/blob/master/docs/images/views_samples/view_kp.png'>Key Press task</a>.`,
+            Next you will see a small <a href='https://github.com/babe-project/babe-project/blob/master/docs/images/views_samples/view_kp.png'>Key Press task</a> experiment sample.
+            <br />
+            <br />
+            The experiment will start with practice trials, followed by a view informing the participant when the practice is finished followed by
+            another Key Press task functioning as the 'real' main trial.
+            <br />
+            <br />
+            On the screen you will see a square or a circle on a random position (generated with babe's canvas). Your task is to press:
+            <br />
+            <br />
+            <b>F</b> for <b>circle</b>
+            <br />
+            <b>J</b> for <b>square</b>`,
     buttonText: 'Start the key press task'
+});
+
+const beginRealKeyPress = babeViews.begin({
+    trials: 1,
+    name: 'begin_key_press',
+    title: 'Begin the real experiment',
+    text: 'This was the practice trial for the key press task. Now the real experiment will begin.',
+    buttonText: 'Begin'
+});
+
+const instructionsPostTest = babeViews.instructions({
+    trials: 1,
+    name: 'instructions_post_test',
+    title: 'Post Questionnaire',
+    text: `Next you will see a sample <a href='/'>Post Test view</a>. 
+    The default questions and answer options are in English, however, the whole questionnaire can be translated. In the following Post Test
+    sample the questions are in German.`
 });
 
 // the post questionnaire can be translated
@@ -174,6 +203,43 @@ const postTest = babeViews.postTest({
     languages_more: '(in der Regel die Sprache, die Sie als Kind zu Hause gesprochen haben)',
     comments_question: 'Weitere Kommentare'
 });
+
+const links = babeViews.instructions({
+    trials: 1,
+    name: 'links',
+    title: 'Further information',
+    text: `This was a short presentation of babe's funcionality.
+        <br />
+        <br />
+        This sample's file organisation:
+        <br />
+        <b>views.js</b> - all the views are created here.
+        <br />
+        <b>trials.js</b> - contains the trial information used in the trial views.
+        <br />
+        <b>events.js</b> - the local functions are created here.
+        <br />
+        <b>main.js</b> - the experiment is initialied here.
+        <br />
+        <br />
+        Babe's documentation:
+        <br />
+        <br />
+        <a href='https://github.com/babe-project/babe-project/blob/master/docs/views.md'>all about the views</a>
+        <br />
+        <a href='https://github.com/babe-project/babe-project/blob/master/docs/canvas.md'>babe canvas</a>
+        <br />
+        <a href='https://github.com/babe-project/babe-project/blob/master/docs/views.md#trial-views-lifecycle'>view lifecycle</a>
+        <br />
+        <a href='https://github.com/babe-project/babe-project/blob/master/docs/views.md#trial-views-hooks'>hooks</a>
+        <br />
+        <a href='/'>loops</a>
+        <br />
+        <a href='https://github.com/babe-project/babe-project#progress-bar'>progress bars</a>
+        <br />
+        <br />
+        This sample ran in Debug mode. Next you will see a results table with your answers.`
+})
 
 // submits the results
 const thanks = babeViews.thanks({
@@ -273,18 +339,28 @@ const ratingScale = babeViews.ratingScale({
     }
 });
 
-const keyPress = babeViews.keyPress({
-    trials: 4,
+const keyPressPractice = babeViews.keyPress({
+    trials: 3,
+    name: 'key_press',
+    trial_type: 'key_press_practice',
+    data: main_trials.keyPress.practice,
+});
+
+const keyPressMain = babeViews.keyPress({
+    trials: 5,
     name: 'key_press',
     trial_type: 'key_press_main',
-    data: main_trials.keyPress,
+    data: main_trials.keyPress.main,
 });
 
 const spr = babeViews.selfPacedReading({
     trials: 4,
     name: 'spr',
     trial_type: 'spr_main',
-    data: main_trials.spr
+    data: main_trials.spr,
+    pause: 300,
+    fix_duration: 500,
+    stim_duration: 1000
 });
 
 const sprRatingScale = babeViews.selfPacedReading_ratingScale({
