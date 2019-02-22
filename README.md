@@ -2,6 +2,10 @@
 
 This repository contains an example that showcases some of the basic functionality of _babe experiments. It can be used as a quick-start departure point when programming a new _babe experiment from scratch.
 
+## Online demo
+
+You can have a look at the experiment [here](https://departure-point.netlify.com/) 
+
 ## How to set up an experiment with _babe (quick start quide)
 
 ### Obtaining the `departure point`
