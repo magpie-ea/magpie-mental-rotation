@@ -30,7 +30,7 @@ const instructions = babeViews.instructions({
     text:  `This is a sample instructions view.
             <br />
             <br />
-            First you will go through a pracice trial session which consists of two trials.
+            First you will go through two practice trials.
             The practice trial view uses babe's <a href='https://github.com/babe-project/babe-project/blob/master/docs/images/views_samples/view_fc.png'>forced choice trial view</a>.`,
     buttonText: 'to the practice trial'
 });
@@ -42,8 +42,8 @@ const instructionsCanvas = babeViews.begin({
     text:   `This is another instructions view.
             <br />
             <br />
-            Next you will see a sample of a <a href='https://github.com/babe-project/babe-project/blob/master/docs/images/views_samples/view_dc.png'>dropwon choice view</a>
-            with 3 trials that has a picture of shapes created with <a href='https://github.com/babe-project/babe-project/blob/master/docs/canvas.md'>babe canvas</a>
+            Next you will see a sample of a <a href='https://github.com/babe-project/babe-project/blob/master/docs/images/views_samples/view_dc.png'>dropdown choice view</a>
+            with 3 trials that have pictures of shapes created with <a href='https://github.com/babe-project/babe-project/blob/master/docs/canvas.md'>babe canvas</a>.
             <br />
             <br />`,
     buttonText: 'Start the experiment'
@@ -52,7 +52,7 @@ const instructionsCanvas = babeViews.begin({
 const instructionsLoop = babeViews.instructions({
     trials: 1,
     name: 'instructions_loop',
-    title: 'Loop Through The Views',
+    title: 'Loop through several views',
     text:   `This is another instructions view.
             <br />
             <br />
@@ -66,12 +66,12 @@ const instructionsLoop = babeViews.instructions({
 const instructionsLifecycle = babeViews.instructions({
     trials: 1,
     name: 'instructions_lifecycle',
-    title: 'Trial Lifecycle',
+    title: 'Trial Life Cycle',
     text:   `This is another instructions view.
             <br />
             <br />
             All the views so far showed the stimulus (if there was such), the question and expected a response at the moment of creation.
-            However, on the background all trial views in babe, go through a lifecycle of a:
+            However, in the background all trial views in babe, go through a life cycle with the following stages:
             <br />
             <br />
             <b>pause</b>
@@ -85,17 +85,17 @@ const instructionsLifecycle = babeViews.instructions({
             <b>interactions enabled</b>
             <br />
             <br />
-            The views that you saw so far also went through these steps using the default lifecycle settings and everything in the trial views was shown at once.
+            The views that you saw so far also went through these steps using the default life cycle settings and everything in the trial views was shown at once.
             <br />
             <br />
-            Next you will see a <a href='https://github.com/babe-project/babe-project/blob/master/docs/images/views_samples/view_sr.png'>Slilder Rating task</a>
+            Next you will see a <a href='https://github.com/babe-project/babe-project/blob/master/docs/images/views_samples/view_sr.png'>Slider Rating task</a>
             that has a pause of 500 ms, fixation point of 1000 ms and the stimulus appears on the screen for 1500 ms. After the stimulus hides, the response
             form appears and the participant can answer the question.
             <br />
             <br />
             After the rating scale task you will see a <a href='https://github.com/babe-project/babe-project/blob/master/docs/images/views_samples/view_ti.png'>Textbox Input task</a>
             that has a pause of 500 ms and a stimulus that hides when 'SPACE' is pressed.`,
-    buttonText: 'Start trial lifecycle sample'
+    buttonText: 'Start trial life cycle sample'
 });
 
 const instructionsHooks = babeViews.instructions({
@@ -111,7 +111,7 @@ const instructionsHooks = babeViews.instructions({
             <br />
             <br />
             Next you will see a sample of a <a href='https://github.com/babe-project/babe-project/blob/master/docs/images/views_samples/view_rc.png'>Rating Scale task</a>
-            that uses a locally defined functions to tell the participant how long they looked at the stimulus.
+            that uses a locally defined function to tell the participant how long they looked at the stimulus.
             <br />
             <br />
             First, a function is hooked after the stimulus appears to timestamp the time the stimulus appears.
@@ -130,13 +130,13 @@ const instructionsProgressBar = babeViews.instructions({
     text:   `This is another instructions view.
             <br />
             <br />
-            Next you will see two sample Self-paced reading task
+            Next you will see two examples of a Self-Paced Reading task
             <br />
             1. <a href='https://github.com/babe-project/babe-project/blob/master/docs/views.md#self-paced-reading-with-forced-choice-response'>
-            Self-paced reading with forced choice response task</a>
+            Self-Paced Reading with Forced Choice response task</a>
             <br />
             2. <a href='https://github.com/babe-project/babe-project/blob/master/docs/views.md#self-paced-reading-task-with-rating-scale-response'>
-            Self-paced reading with rating scale response task</a>
+            Self-Paced Reading with Rating Scale task</a>
             <br />
             <br />
             The trial views have a progress bar in the top right corner of the screen. You can <a href='https://github.com/babe-project/babe-project#progress-bar'>
@@ -220,7 +220,7 @@ const links = babeViews.instructions({
         <br />
         <b>events.js</b> - the local functions are created here.
         <br />
-        <b>main.js</b> - the experiment is initialied here.
+        <b>main.js</b> - the experiment is initialized here.
         <br />
         <br />
         Babe's documentation:
@@ -230,7 +230,7 @@ const links = babeViews.instructions({
         <br />
         <a href='https://github.com/babe-project/babe-project/blob/master/docs/canvas.md'>babe canvas</a>
         <br />
-        <a href='https://github.com/babe-project/babe-project/blob/master/docs/views.md#trial-views-lifecycle'>view lifecycle</a>
+        <a href='https://github.com/babe-project/babe-project/blob/master/docs/views.md#trial-views-lifecycle'>view life cycle</a>
         <br />
         <a href='https://github.com/babe-project/babe-project/blob/master/docs/views.md#trial-views-hooks'>hooks</a>
         <br />
@@ -265,7 +265,7 @@ const thanks = babeViews.thanks({
     - pause: number (in ms) - blank screen before the fixation point or stimulus show
     - fix_duration: number (in ms) - blank screen with fixation point in the middle
     - stim_duration: number (in ms) - for how long to have the stimulus on the screen
-        More about trial lifecycle - https://github.com/babe-project/babe-project/blob/master/docs/views.md#trial-views-lifecycle
+        More about trial life cycle - https://github.com/babe-project/babe-project/blob/master/docs/views.md#trial-views-lifecycle
 
     - hook: object - option to hook and add custom functions to the view   
         More about hooks - https://github.com/babe-project/babe-project/blob/master/docs/views.md#trial-views-hooks

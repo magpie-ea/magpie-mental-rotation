@@ -12,6 +12,8 @@ $("document").ready(function() {
         views_seq: [
             intro,
 
+            //hello,
+
             instructions,
             practiceForcedChoice,
 
