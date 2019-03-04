@@ -11,45 +11,15 @@ $("document").ready(function() {
     babeInit({
         views_seq: [
             intro,
-
-            //hello,
-
             instructions,
-            practiceForcedChoice,
-
-            instructionsCanvas,
-            dropdownChoice,
-
-            instructionsLoop,
-            babeUtils.views.loop([
-                sentenceChoice,
-                imageSelection
-            ], 2),
-
-            instructionsLifecycle,
-            sliderRating,
-            textboxInput,
-
-            instructionsHooks,
-            ratingScale,
-
-            instructionsProgressBar,
-            spr,
-            sprRatingScale,
-
-            instructionsExperiment,
-            keyPressPractice,
-            beginRealKeyPress,
-            keyPressMain,
-
+            task_one_2AFC,
+            task_two_sentence_completion,
             instructionsPostTest,
-            postTest,
-
-            links,
+            post_test,
             thanks,
         ],
         deploy: {
-            experimentID: "4",
+            experimentID: "INSERT_A_NUMBER",
             serverAppURL: "https://babe-demo.herokuapp.com/api/submit_experiment/",
             deployMethod: "debug",
             contact_email: "YOUREMAIL@wherelifeisgreat.you",
@@ -57,9 +27,9 @@ $("document").ready(function() {
         },
         progress_bar: {
             in: [
-                "spr",
-                "spr_rating_scale",
-                "key_press_main"
+                // list the view-names of the views for which you want a progress bar
+                "task_one",
+                "task_two"
             ],
             style: "separate",
             width: 100
