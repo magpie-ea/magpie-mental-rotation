@@ -1,4 +1,4 @@
-const practice_trials = {
+const part_one_trial_info = {
     forcedChoice: [
         {
             question: "What's on the bread?",
@@ -15,7 +15,7 @@ const practice_trials = {
     ],
 }
 
-const main_trials = {
+const part_two_trial_info = {
     multi_dropdown: [
         {
             sentence_chunk_1: "Some of the",

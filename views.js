@@ -101,6 +101,6 @@ const task_one_2AFC = babeViews.forcedChoice({
     trials: 2,
     name: 'task_one',
     trial_type: '2A_forced_choice',
-    data: practice_trials.forcedChoice
+    data: part_one_trial_info.forcedChoice
 });
 
