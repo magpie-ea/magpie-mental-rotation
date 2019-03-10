@@ -33,3 +33,6 @@ const part_two_trial_info = {
         }
     ]
 }
+
+// random shuffling of trial information
+part_one_trial_info.multi_dropdown = _.shuffle(part_one_trial_info.multi_dropdown)
