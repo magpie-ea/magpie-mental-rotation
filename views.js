@@ -98,7 +98,7 @@ const thanks = babeViews.thanks({
 
 // part of the practice sample
 const task_one_2AFC = babeViews.forcedChoice({
-    trials: 2,
+    trials: part_one_trial_info.forced_choice.length,
     name: 'task_one',
     trial_type: '2A_forced_choice',
     data: part_one_trial_info.forced_choice
