@@ -1,5 +1,5 @@
 const part_one_trial_info = {
-    forcedChoice: [
+    forced_choice: [
         {
             question: "What's on the bread?",
             picture: "images/question_mark_02.png",
