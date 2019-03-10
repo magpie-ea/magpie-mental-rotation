@@ -121,7 +121,7 @@ const task_two_sentence_completion = multiple_dropdown({
     QUD: "Choose one option for each missing word in this sentence.",
     name: 'task_two',
     trial_type: 'dropdown_sentence_completion',
-    data: part_two_trial_info.multi_dropdown
+    data: _.shuffle(part_two_trial_info.multi_dropdown)
 });
 
 
