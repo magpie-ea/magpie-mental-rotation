@@ -1,6 +1,9 @@
+// In this file you can create your own custom view templates
+
+// First we create a custom_views object
 const custom_views = {};
 
-
+// We can now add view templates to our custom_views object
 custom_views.multiple_dropdown = function(config) {
     const multi_dropdown_function = {
         name: config.name,

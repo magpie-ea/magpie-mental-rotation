@@ -98,7 +98,9 @@ const thanks = babeViews.thanks({
 
 
 const task_one_2AFC = babeViews.forcedChoice({
-    trials: part_one_trial_info.forced_choice.length,
+    // This will use all trials specified in `data`, you can user a smaller value (for testing), but not a larger value
+    trials: part_one_trial_info.forced_choice.length, 
+    // name and trial_type should be identical to the variable name
     name: 'task_one_2AFC',
     trial_type: 'task_one_2AFC',
     data: part_one_trial_info.forced_choice
@@ -110,6 +112,7 @@ const task_two_sentence_completion = custom_views.multiple_dropdown({
     QUD: "Choose one option for each missing word in this sentence.",
     name: 'task_two_sentence_completion',
     trial_type: 'task_two_sentence_completion',
+    // You can also randomize (shuffle) the trials of a view
     data: _.shuffle(part_two_trial_info.multi_dropdown)
 });
 
