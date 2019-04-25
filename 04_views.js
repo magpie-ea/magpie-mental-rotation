@@ -1,3 +1,7 @@
+// In this file you can instantiate your views
+// First instantiate your wrapping views, then you can instantiate your trial views
+
+
 /** Wrapping views below
 
 * Obligatory properties

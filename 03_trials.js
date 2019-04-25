@@ -1,3 +1,6 @@
+// In this file you can specify the trial data for your experiment
+
+
 const part_one_trial_info = {
     forced_choice: [
         {
@@ -13,7 +16,7 @@ const part_one_trial_info = {
             option2: "rainbow"
         }
     ],
-}
+};
 
 const part_two_trial_info = {
     multi_dropdown: [
@@ -32,4 +35,4 @@ const part_two_trial_info = {
             choice_options_2: ["happy", "hungry", "sad"]
         }
     ]
-}
+};

@@ -1,4 +1,5 @@
-// initialises a babe experiment with babeInit
+// In this file you initialize and configure your experiment using babeInit
+
 $("document").ready(function() {
     // prevent scrolling when space is pressed
     window.onkeydown = function(e) {
