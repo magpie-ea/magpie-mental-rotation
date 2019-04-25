@@ -96,11 +96,20 @@ const thanks = babeViews.thanks({
 * All about the properties of trial - https://github.com/babe-project/babe-project/blob/master/docs/views.md#properties-of-trial
 */
 
-// part of the practice sample
+
 const task_one_2AFC = babeViews.forcedChoice({
     trials: part_one_trial_info.forced_choice.length,
-    name: 'task_one',
-    trial_type: '2A_forced_choice',
+    name: 'task_one_2AFC',
+    trial_type: 'task_one_2AFC',
     data: part_one_trial_info.forced_choice
+});
+
+const task_two_sentence_completion = custom_views.multiple_dropdown({
+    trials: part_two_trial_info.multi_dropdown.length,
+    title: "Complete the sentence",
+    QUD: "Choose one option for each missing word in this sentence.",
+    name: 'task_two_sentence_completion',
+    trial_type: 'task_two_sentence_completion',
+    data: _.shuffle(part_two_trial_info.multi_dropdown)
 });
 

@@ -30,8 +30,8 @@ $("document").ready(function() {
         progress_bar: {
             in: [
                 // list the view-names of the views for which you want a progress bar
-                "task_one",
-                "task_two"
+                task_one_2AFC.name,
+                task_two_sentence_completion.name
             ],
             style: "separate",
             width: 100

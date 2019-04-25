@@ -1,4 +1,7 @@
-const multiple_dropdown = function(config) {
+const custom_views = {};
+
+
+custom_views.multiple_dropdown = function(config) {
     const multi_dropdown_function = {
         name: config.name,
         title: babeUtils.view.setter.title(config.title, ""),
@@ -114,14 +117,3 @@ const multiple_dropdown = function(config) {
 
     return multi_dropdown_function;
 };
-
-const task_two_sentence_completion = multiple_dropdown({
-    trials: part_two_trial_info.multi_dropdown.length,
-    title: "Complete the sentence",
-    QUD: "Choose one option for each missing word in this sentence.",
-    name: 'task_two',
-    trial_type: 'dropdown_sentence_completion',
-    data: _.shuffle(part_two_trial_info.multi_dropdown)
-});
-
-
