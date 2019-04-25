@@ -20,7 +20,6 @@ $("document").ready(function() {
  	    // You can also randomize the order of some views
 	    _.shuffle([task_one_2AFC,
             task_two_sentence_completion]),
-            instructionsPostTest,
             post_test,
             thanks,
         ],

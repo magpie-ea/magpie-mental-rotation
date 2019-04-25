@@ -9,24 +9,32 @@
     * trials: int - the number of trials this view will appear
     * name: string
 
+*Optional properties
+    * buttonText: string - the text on the button (default: 'next')
+    * text: string - the text to be displayed in this view
+    * title: string - the title of this view
+
 * More about the properties and functions of the wrapping views - https://github.com/babe-project/babe-project/blob/master/docs/views.md#wrapping-views-properties
 
 */
 
+// Every experiment should start with an intro view. Here you can welcome your participants and tell them what the experiment is about
 const intro = babeViews.intro({
     trials: 1,
     name: 'intro',
+    // If you use JavaScripts Template String `I am a Template String`, you can use HTML <></> and javascript ${} inside
     text:   `This is a sample introduction view.
             <br />
             <br />
             The introduction view welcomes the participant and gives general information
-            about the experiment.
+            about the experiment. You are in the <strong>${coin}</strong> group.
             <br />
             <br />
             This is a minimal experiment with two views, one template, one custom made. It can serve as a starting point for programming your own experiment.`,
-    buttonText: 'begin the experiment'
+   buttonText: 'Begin the experiment'    
 });
 
+// For most tasks, you need instructions views
 const instructions = babeViews.instructions({
     trials: 1,
     name: 'instrucions',
@@ -35,19 +43,11 @@ const instructions = babeViews.instructions({
             <br />
             <br />
             Tell your participants what they are to do here.`,
-    buttonText: 'go to forced choice trials'
+    buttonText: 'go to trials'
 });
 
-const instructionsPostTest = babeViews.instructions({
-    trials: 1,
-    name: 'instructions_post_test',
-    title: 'Post Questionnaire',
-    text: `Next you will see a sample <a href='/'>Post Test view</a>. 
-    The default questions and answer options are in English, however, the whole questionnaire can be translated. In the following Post Test
-    sample the questions are in German.`
-});
 
-// the post questionnaire can be translated
+// In the post test questionnaire you can ask your participants addtional questions
 const post_test = babeViews.postTest({
     trials: 1,
     name: 'post_test',
@@ -70,7 +70,7 @@ const post_test = babeViews.postTest({
     // comments_question: 'Weitere Kommentare'
 });
 
-// the 'thanks' view is crucial; never delete it; it submits the results!
+// The 'thanks' view is crucial; never delete it; it submits the results!
 const thanks = babeViews.thanks({
     trials: 1,
     name: 'thanks',
@@ -101,6 +101,7 @@ const thanks = babeViews.thanks({
 */
 
 
+// Here we initialize a forcedChoice view
 const task_one_2AFC = babeViews.forcedChoice({
     // This will use all trials specified in `data`, you can user a smaller value (for testing), but not a larger value
     trials: part_one_trial_info.forced_choice.length, 
@@ -110,6 +111,7 @@ const task_one_2AFC = babeViews.forcedChoice({
     data: part_one_trial_info.forced_choice
 });
 
+// Here we initialize our multi-dropdown custom view
 const task_two_sentence_completion = custom_views.multiple_dropdown({
     trials: part_two_trial_info.multi_dropdown.length,
     title: "Complete the sentence",
