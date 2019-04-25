@@ -101,24 +101,72 @@ const thanks = babeViews.thanks({
 */
 
 
-// Here we initialize a forcedChoice view
-const task_one_2AFC = babeViews.forcedChoice({
+// Here, we initialize a forcedChoice view
+const forced_choice_2A = babeViews.forcedChoice({
     // This will use all trials specified in `data`, you can user a smaller value (for testing), but not a larger value
     trials: part_one_trial_info.forced_choice.length, 
     // name and trial_type should be identical to the variable name
-    name: 'task_one_2AFC',
-    trial_type: 'task_one_2AFC',
+    name: 'forced_choice_2A',
+    trial_type: 'forced_choice_2A',
     data: part_one_trial_info.forced_choice
 });
 
-// Here we initialize our multi-dropdown custom view
-const task_two_sentence_completion = custom_views.multiple_dropdown({
+// Here, we initialize a keyPress task
+const key_press = babeViews.keyPress({
+    trials: 2,
+    name: 'key_press',
+    trial_type: 'key_press',
+    // We can also make use of the trial life cycles, e.g. to introduce a blank screen and a fixation point
+    pause: 1000,
+    fix_duration: 1500,
+    // It is also possiblle, to define the trial data here, but this quickly gets confusing
+    // The trial data is an array and every entry is an object with all necessary information for one trial
+    data: [{key1: "f",
+           key2: "j",
+           f: "circle",
+           j: "square",
+           expected: "circle",
+           // You can make use of our canvas API to create some stimuli
+           canvas: {
+               focalColor: 'blue',
+               focalShape: 'circle',
+               focalNumber: 1,
+               sort: 'random',
+               elemSize: 100,
+               total: 1
+          }},
+	   {key1: "f",
+           key2: "j",
+           f: "circle",
+           j: "square",
+           expected: "circle",
+           canvas: {
+               focalColor: 'yellow',
+               focalShape: 'square',
+               focalNumber: 10,
+               sort: 'random',
+               elemSize: 30,
+               total: 10
+          }}]
+});
+
+// There are many more templates available: 
+// forcedChoice, sliderRating, dropdownChoice, testboxInput, ratingScale, imageSelection, sentenceChoice, keyPress, selfPacedReading and selfPacedReading_ratingScale
+
+// If the provided templates are not enough, we can just create custom view templates in 02_custom_views_templates.js and use them here
+// Here, we initialize our multi-dropdown custom view
+const sentence_completion = custom_views.multiple_dropdown({
     trials: part_two_trial_info.multi_dropdown.length,
     title: "Complete the sentence",
     QUD: "Choose one option for each missing word in this sentence.",
-    name: 'task_two_sentence_completion',
-    trial_type: 'task_two_sentence_completion',
+    name: 'sentence_completion',
+    trial_type: 'sentence_completion',
     // You can also randomize (shuffle) the trials of a view
-    data: _.shuffle(part_two_trial_info.multi_dropdown)
+    data: _.shuffle(part_two_trial_info.multi_dropdown),
+    // There is the possibility to add hooks after different events in the trials life cycle
+    // after_pause, after_fix_point, after_stim_shown, after_stim_hidden, after_response_enabled
+    hook: {after_response_enabled: time_limit}
 });
+
+
 

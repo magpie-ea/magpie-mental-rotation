@@ -22,6 +22,7 @@ custom_views.multiple_dropdown = function(config) {
             const viewTemplate = `<div class='babe-view'>
                 <h1 class='babe-view-title'>${this.title}</h1>
                 <p class='babe-view-question babe-view-qud'>${QUD}</p>
+                <p class='babe-response-keypress-header' id = 'reminder'></p>
                 </div>`;
 
             const answerContainerElem = `<div class='babe-view-answer-container babe-response-dropdown'>
@@ -75,6 +76,9 @@ custom_views.multiple_dropdown = function(config) {
 
                 $("#next").on("click", function() {
                     const RT = Date.now() - startingTime; // measure RT before anything else
+		    // clear old timeouts and remove them from the timeout array
+                    clearTimeout(window.timeout[0]);
+		    window.timeout.shift();
                     const trial_data = {
                         trial_type: config.trial_type,
                         trial_number: CT + 1,

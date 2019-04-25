@@ -18,8 +18,9 @@ $("document").ready(function() {
             intro,
             instructions,
  	    // You can also randomize the order of some views
-	    _.shuffle([task_one_2AFC,
-            task_two_sentence_completion]),
+	    _.shuffle([forced_choice_2A,
+            sentence_completion]),
+ 	    key_press,
             post_test,
             thanks,
         ],
@@ -38,8 +39,8 @@ $("document").ready(function() {
         progress_bar: {
             in: [
                 // list the view-names of the views for which you want a progress bar
-                task_one_2AFC.name,
-                task_two_sentence_completion.name
+                forced_choice_2A.name,
+                sentence_completion.name
             ],
 	    // Possible styles are "default", "separate" and "chunks"
             style: "separate",

@@ -35,15 +35,16 @@ const generateID = function(len) {
 *
 */
 
-// Compares the chosen answer to the value of `option1`
- const check_response = function(data, next) {
- $('input[name=answer]').on('change', function(e) {
-        if (e.target.value === data.option1) {
-            alert('Your answer is correct! Yey!');
-        } else {
-            alert('Sorry, this answer is incorrect :(');
-        }
-        next();
-    });
+//Error feedback if participants exceeds the time for responding
+const time_limit = function(data, next) {
+    if (typeof window.timeout === 'undefined'){
+        window.timeout = [];
+    }
+    // Add timeouts to the timeoutarray
+    // Reminds the participant to respond after 5 seconds
+    window.timeout.push(setTimeout(function(){
+          $('#reminder').text('Please answer more quickly!');
+    }, 5000));
+    next();
 };
 // Declare your hooks here
