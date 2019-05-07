@@ -135,7 +135,7 @@ const key_press = babeViews.keyPress({
                elemSize: 100,
                total: 1
           }},
-	   {key1: "f",
+       {key1: "f",
            key2: "j",
            f: "circle",
            j: "square",

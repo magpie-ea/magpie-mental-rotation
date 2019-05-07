@@ -76,9 +76,9 @@ custom_views.multiple_dropdown = function(config) {
 
                 $("#next").on("click", function() {
                     const RT = Date.now() - startingTime; // measure RT before anything else
-		    // clear old timeouts and remove them from the timeout array
+                    // clear old timeouts and remove them from the timeout array
                     clearTimeout(window.timeout[0]);
-		    window.timeout.shift();
+                    window.timeout.shift();
                     const trial_data = {
                         trial_type: config.trial_type,
                         trial_number: CT + 1,
