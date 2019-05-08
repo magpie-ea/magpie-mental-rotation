@@ -66,7 +66,7 @@ fill_defaults_post_test = function(config) {
 // The generator gets the config dict and CT as input and will generate the babe-view HTML code
 // (Some view templates are the same, e.g. forced_choice and sliderRating)
 const view_temp_dict = {
-    "basic_stimulus": function (config, CT) {
+    basic_stimulus: function (config, CT) {
         return `<div class='babe-view'>
                     <h1 class='babe-view-title'>${config.title}</h1>
                     <p class='babe-view-question babe-view-qud'>${config.data[CT].QUD}</p>
@@ -75,7 +75,7 @@ const view_temp_dict = {
                     </div>
                 </div>`;
     },
-    "key_press": function(config, CT) {
+    key_press: function(config, CT) {
         return `<div class="babe-view">
                     <h1 class='babe-view-title'>${config.title}</h1>
                     <p class='babe-response-keypress-header'>
@@ -86,7 +86,7 @@ const view_temp_dict = {
                     </div>
                 </div>`;
     },
-    "fixed_text": function(config, CT) {
+    fixed_text: function(config, CT) {
         return `<div class='babe-view'>
                     <h1 class='babe-view-title'>${config.title}</h1>
                     <section class="babe-text-container">
@@ -94,7 +94,7 @@ const view_temp_dict = {
                     </section>
                 </div>`;
     },
-    "post_test": function(config, CT) {
+    post_test: function(config, CT) {
         return `<div class='babe-view babe-post-test-view'>
                     <h1 class='babe-view-title'>${config.title}</h1>
                     <section class="babe-text-container">
@@ -102,8 +102,21 @@ const view_temp_dict = {
                     </section>
                 </div>`;
     },
-    "empty": function(config, CT) {
+    empty: function(config, CT) {
         return ``;
+    },
+    self_paced_reading: function(config, CT) {
+        const helpText = config.data[CT].help_text !== undefined ?
+            config.data[CT].help_text : "Press the SPACE bar to reveal the words";
+        return `<div class='babe-view'>
+                    <h1 class='babe-view-title'>${config.title}</h1>
+                    <p class='babe-view-question babe-view-qud'>${config.data[CT].QUD}</p>
+                    <div class='babe-view-stimulus-container'>
+                        <div class='babe-view-stimulus babe-nodisplay'></div>
+                    </div>
+                    <p class='babe-help-text babe-nodisplay'>${helpText}</p>
+                    <p class='babe-spr-sentence'></p>
+                </div>`;
     }
 };
 
@@ -111,7 +124,7 @@ const view_temp_dict = {
 // The generator gets the config dict and CT as input and will generate the babe-view-answer-container HTML code
 // (Some answer container elements should be the same, e.g. slider rating and SPR-slider rating)
 const answer_contain_dict = {
-    "button_choice": function (config, CT) {
+    button_choice: function (config, CT) {
         return `<div class='babe-view-answer-container'>
                     <p class='babe-view-question'>${config.data[CT].question}</p>
                     <label for='o1' class='babe-response-buttons'>${config.data[CT].option1}</label>
@@ -120,16 +133,16 @@ const answer_contain_dict = {
                     <label for='o2' class='babe-response-buttons'>${config.data[CT].option2}</label>
                 </div>`;
     },
-    "question": function(config, CT) {
+    question: function(config, CT) {
         return `<div class='babe-view-answer-container'>
                         <p class='babe-view-question'>${config.data[CT].question}</p>`;
     },
-    "one_button": function (config, CT) {
+    one_button: function (config, CT) {
         return `<button id="next" class='babe-view-button' class="babe-nodisplay">${
                         config.button
                     }</button>`
     },
-    "post_test": function(config, CT) {
+    post_test: function(config, CT) {
         const quest = fill_defaults_post_test(config);
         return `<form>
                     <p class='babe-view-text'>
@@ -165,15 +178,93 @@ const answer_contain_dict = {
                     <button id="next" class='babe-view-button'>${config.button}</button>
             </form>`
     },
-    "empty": function(config, CT) {
+    empty: function(config, CT) {
         return ``;
+    },
+    slider_rating: function(config, CT) {
+        const option1 = config.data[CT].optionLeft;
+        const option2 = config.data[CT].optionRight;
+        return `<p class='babe-view-question'>${config.data[CT].question}</p>
+                <div class='babe-view-answer-container'>
+                    <span class='babe-response-slider-option'>${option1}</span>
+                    <input type='range' id='response' class='babe-response-slider' min='0' max='100' value='50'/>
+                    <span class='babe-response-slider-option'>${option2}</span>
+                </div>
+                <button id="next" class='babe-view-button babe-nodisplay'>Next</button>`;
+    },
+    textbox_input: function(config, CT) {
+        return `<p class='babe-view-question'>${config.data[CT].question}</p>
+                    <div class='babe-view-answer-container'>
+                        <textarea name='textbox-input' rows=10 cols=50 class='babe-response-text' />
+                    </div>
+                    <button id='next' class='babe-view-button babe-nodisplay'>next</button>`;
+    },
+    dropdown_choice: function(config, CT) {
+        const question_left_part =
+            config.data[CT].question_left_part === undefined ? "" : config.data[CT].question_left_part;
+        const question_right_part =
+            config.data[CT].question_right_part === undefined ? "" : config.data[CT].question_right_part;
+        const option1 = config.data[CT].option1;
+        const option2 = config.data[CT].option2;
+        return `<div class='babe-view-answer-container babe-response-dropdown'>
+                    ${question_left_part}
+                    <select id='response' name='answer'>
+                        <option disabled selected></option>
+                        <option value=${option1}>${option1}</option>
+                        <option value=${option2}>${option2}</option>
+                    </select>
+                    ${question_right_part}
+                    </p>
+                    <button id='next' class='babe-view-button babe-nodisplay'>Next</button>
+                </div>`;
+
+    },
+    rating_scale: function(config, CT) {
+        return `<p class='babe-view-question'>${config.data[CT].question}</p>
+                <div class='babe-view-answer-container'>
+                    <strong class='babe-response-rating-option babe-view-text'>${config.data[CT].optionLeft}</strong>
+                    <label for="1" class='babe-response-rating'>1</label>
+                    <input type="radio" name="answer" id="1" value="1" />
+                    <label for="2" class='babe-response-rating'>2</label>
+                    <input type="radio" name="answer" id="2" value="2" />
+                    <label for="3" class='babe-response-rating'>3</label>
+                    <input type="radio" name="answer" id="3" value="3" />
+                    <label for="4" class='babe-response-rating'>4</label>
+                    <input type="radio" name="answer" id="4" value="4" />
+                    <label for="5" class='babe-response-rating'>5</label>
+                    <input type="radio" name="answer" id="5" value="5" />
+                    <label for="6" class='babe-response-rating'>6</label>
+                    <input type="radio" name="answer" id="6" value="6" />
+                    <label for="7" class='babe-response-rating'>7</label>
+                    <input type="radio" name="answer" id="7" value="7" />
+                    <strong class='babe-response-rating-option babe-view-text'>${config.data[CT].optionRight}</strong>
+                </div>`;
+    },
+    sentence_choice: function(config, CT) {
+        return `<div class='babe-view-answer-container'>
+                    <p class='babe-view-question'>${config.data[CT].question}</p>
+                    <label for='s1' class='babe-response-sentence'>${config.data[CT].option1}</label>
+                    <input type='radio' name='answer' id='s1' value="${config.data[CT].option1}" />
+                    <label for='s2' class='babe-response-sentence'>${config.data[CT].option2}</label>
+                    <input type='radio' name='answer' id='s2' value="${config.data[CT].option2}" />
+                </div>`;
+    },
+    image_selection: function(config, CT) {
+        $(".babe-view-stimulus-container").addClass("babe-nodisplay");
+        return    `<div class='babe-view-answer-container'>
+                        <p class='babe-view-question'>${config.data[CT].question}</p>
+                        <label for="img1" class='babe-view-picture babe-response-picture'><img src=${config.data[CT].picture1}></label>
+                        <input type="radio" name="answer" id="img1" value="${config.data[CT].option1}" />
+                        <input type="radio" name="answer" id="img2" value="${config.data[CT].option2}" />
+                        <label for="img2" class='babe-view-picture babe-response-picture'><img src=${config.data[CT].picture2}></label>
+                    </div>`;
     }
 };
 
 // The enable response dict contains a generator function for every view type we support
 // The generator gets the config dict, CT, the answer_container_generator and the startingTime as input
 const enable_response_dict = {
-    "button_choice": function(config, CT, babe, answer_container_generator, startingTime) {
+    button_choice: function(config, CT, babe, answer_container_generator, startingTime) {
         $(".babe-view").append(answer_container_generator(config, CT));
 
         // attaches an event listener to the yes / no radio inputs
@@ -195,7 +286,7 @@ const enable_response_dict = {
             babe.findNextView();
         });
     },
-    "key_press": function (config, CT, babe, answer_container_generator, startingTime) {
+    key_press: function (config, CT, babe, answer_container_generator, startingTime) {
 
         $(".babe-view").append(answer_container_generator(config, CT));
 
@@ -240,7 +331,7 @@ const enable_response_dict = {
 
         $("body").on("keydown", handleKeyPress);
     },
-    "intro": function(config, CT, babe, answer_container_generator, startingTime) {
+    intro: function(config, CT, babe, answer_container_generator, startingTime) {
 
         $(".babe-view").append(answer_container_generator(config, CT));
 
@@ -283,7 +374,7 @@ const enable_response_dict = {
             babe.findNextView();
         });
     },
-    "one_click": function(config, CT, babe, answer_container_generator, startingTime) {
+    one_click: function(config, CT, babe, answer_container_generator, startingTime) {
 
         $(".babe-view").append(answer_container_generator(config, CT));
 
@@ -291,7 +382,7 @@ const enable_response_dict = {
             babe.findNextView();
         });
     },
-    "post_test": function(config, CT, babe, answer_container_generator, startingTime) {
+    post_test: function(config, CT, babe, answer_container_generator, startingTime) {
         $(".babe-view").append(answer_container_generator(config, CT));
 
         $("#next").on("click", function(e) {
@@ -316,7 +407,7 @@ const enable_response_dict = {
             babe.findNextView();
         });
     },
-    "thanks": function(config, CT, babe, answer_container_generator, startingTime) {
+    thanks: function(config, CT, babe, answer_container_generator, startingTime) {
         const prolificConfirmText = babeUtils.view.setter.prolificConfirmText(config.prolificConfirmText,
             "Please press the button below to confirm that you completed the experiment with Prolific");
         if (
@@ -365,11 +456,190 @@ const enable_response_dict = {
         }
 
         babe.submission.submit(babe);
+    },
+    slider_rating: function(config, CT, babe, answer_container_generator, startingTime){
+        let response;
+
+        $(".babe-view").append(answer_container_generator(config, CT));
+
+        response = $("#response");
+        // checks if the slider has been changed
+        response.on("change", function() {
+            $("#next").removeClass("babe-nodisplay");
+        });
+        response.on("click", function() {
+            $("#next").removeClass("babe-nodisplay");
+        });
+
+        $("#next").on("click", function() {
+            const RT = Date.now() - startingTime; // measure RT before anything else
+            let trial_data = {
+                trial_name: config.name,
+                trial_number: CT + 1,
+                response: response.val(),
+                RT: RT
+            };
+
+            trial_data = save_config_trial_data(config.data[CT], trial_data);
+
+            babe.trial_data.push(trial_data);
+            babe.findNextView();
+        });
+    },
+    textbox_input: function(config, CT, babe, answer_container_generator, startingTime) {
+        let next;
+        let textInput;
+        const minChars = config.data[CT].min_chars === undefined ? 10 : config.data[CT].min_chars;
+
+        $(".babe-view").append(answer_container_generator(config, CT));
+
+        next = $("#next");
+        textInput = $("textarea");
+
+        // attaches an event listener to the textbox input
+        textInput.on("keyup", function() {
+            // if the text is longer than (in this case) 10 characters without the spaces
+            // the 'next' button appears
+            if (textInput.val().trim().length > minChars) {
+                next.removeClass("babe-nodisplay");
+            } else {
+                next.addClass("babe-nodisplay");
+            }
+        });
+
+        // the trial data gets added to the trial object
+        next.on("click", function() {
+            const RT = Date.now() - startingTime; // measure RT before anything else
+            let trial_data = {
+                trial_name: config.name,
+                trial_number: CT + 1,
+                response: textInput.val().trim(),
+                RT: RT
+            };
+
+            trial_data = save_config_trial_data(config.data[CT], trial_data);
+
+            babe.trial_data.push(trial_data);
+            babe.findNextView();
+        });
+    },
+    dropdown_choice: function(config, CT, babe, answer_container_generator, startingTime){
+        let response;
+
+        const question_left_part =
+            config.data[CT].question_left_part === undefined ? "" : config.data[CT].question_left_part;
+        const question_right_part =
+            config.data[CT].question_right_part === undefined ? "" : config.data[CT].question_right_part;
+
+        $(".babe-view").append(answer_container_generator(config, CT));
+
+        response = $("#response");
+
+        response.on("change", function() {
+            $("#next").removeClass("babe-nodisplay");
+        });
+
+
+        $("#next").on("click", function() {
+            const RT = Date.now() - startingTime; // measure RT before anything else
+            let trial_data = {
+                trial_name: config.name,
+                trial_number: CT + 1,
+                question: question_left_part.concat("...answer here...").concat(question_right_part),
+                response: response.val(),
+                RT: RT
+            };
+
+            trial_data = save_config_trial_data(config.data[CT], trial_data);
+
+            babe.trial_data.push(trial_data);
+            babe.findNextView();
+        });
+    },
+    self_paced_reading: function(config, CT, babe, answer_container_generator, startingTime){
+
+        const sentenceList = config.data[CT].sentence.trim().split(" | ");
+        let spaceCounter = 0;
+        let wordList;
+        let readingTimes = [];
+
+        // shows the sentence word by word on SPACE press
+        const handle_key_press = function(e) {
+
+            if (e.which === 32 && spaceCounter < wordList.length) {
+                wordList[spaceCounter].classList.remove(
+                    "spr-word-hidden"
+                );
+
+                if (spaceCounter === 0) {
+                    $(".babe-help-text").addClass("babe-invisible");
+                }
+
+                if (spaceCounter > 0) {
+                    wordList[spaceCounter - 1].classList.add(
+                        "spr-word-hidden"
+                    );
+                }
+
+                readingTimes.push(Date.now());
+                spaceCounter++;
+            } else if (
+                e.which === 32 &&
+                spaceCounter === wordList.length
+            ) {
+                wordList[spaceCounter - 1].classList.add(
+                    "spr-word-hidden"
+                );
+
+                $(".babe-view").append(answer_container_generator(config, CT));
+
+                $("input[name=answer]").on("change", function() {
+                    const RT = Date.now() - startingTime;
+                    let reactionTimes = readingTimes
+                        .reduce((result, current, idx) => {
+                            return result.concat(
+                                readingTimes[idx + 1] - readingTimes[idx]
+                            );
+                        }, [])
+                        .filter((item) => isNaN(item) === false);
+                    let trial_data = {
+                        trial_name: config.name,
+                        trial_number: CT + 1,
+                        response: $("input[name=answer]:checked").val(),
+                        reaction_times: reactionTimes,
+                        time_spent: RT
+                    };
+
+                    trial_data = save_config_trial_data(config.data[CT], trial_data);
+
+                    babe.trial_data.push(trial_data);
+                    babe.findNextView();
+                });
+                readingTimes.push(Date.now());
+                spaceCounter++;
+            }
+        };
+        // shows the help text
+        $(".babe-help-text").removeClass("babe-nodisplay");
+
+        // creates the sentence
+        sentenceList.map((word) => {
+            $(".babe-spr-sentence").append(
+                `<span class='spr-word spr-word-hidden'>${word}</span>`
+            );
+        });
+
+        // creates an array of spr word elements
+        wordList = $(".spr-word").toArray();
+
+        // attaches an eventListener to the body for space
+        $("body").on("keydown", handle_key_press);
+
     }
 };
 
 const view_info_dict = {
-    "intro": {
+    intro: {
         type: "wrapping",
         default_title: "Welcome!",
         default_button_text: "Next",
@@ -377,7 +647,7 @@ const view_info_dict = {
         default_answer_temp: answer_contain_dict.one_button,
         default_handle_response: enable_response_dict.intro
     },
-    "instructions": {
+    instructions: {
         type: "wrapping",
         default_title: "Instructions",
         default_button_text: "Next",
@@ -385,7 +655,7 @@ const view_info_dict = {
         default_answer_temp: answer_contain_dict.one_button,
         default_handle_response: enable_response_dict.one_click
     },
-    "begin": {
+    begin: {
         type: "wrapping",
         default_title: "Begin",
         default_button_text: "Next",
@@ -393,7 +663,7 @@ const view_info_dict = {
         default_answer_temp: answer_contain_dict.one_button,
         default_handle_response: enable_response_dict.one_click
     },
-    "post_test": {
+    post_test: {
         type: "wrapping",
         default_title: "Additional Information",
         default_button_text: "Next",
@@ -401,7 +671,7 @@ const view_info_dict = {
         default_answer_temp: answer_contain_dict.post_test,
         default_handle_response: enable_response_dict.post_test
     },
-    "thanks": {
+    thanks: {
         type: "wrapping",
         default_title: "Thank you for taking part in this experiment!",
         default_button_text: "",
@@ -409,7 +679,7 @@ const view_info_dict = {
         default_answer_temp: answer_contain_dict.empty,
         default_handle_response: enable_response_dict.thanks
     },
-    "forced_choice": {
+    forced_choice: {
         type: "trial",
         default_title: "",
         default_button_text: "",
@@ -417,7 +687,7 @@ const view_info_dict = {
         default_answer_temp: answer_contain_dict.button_choice,
         default_handle_response: enable_response_dict.button_choice
     },
-    "key_press": {
+    key_press: {
         type: "trial",
         default_title: "",
         default_button_text: "",
@@ -425,6 +695,71 @@ const view_info_dict = {
         default_answer_temp: answer_contain_dict.question,
         default_handle_response: enable_response_dict.key_press
     },
+    slider_rating: {
+        type: "trial",
+        default_title: "",
+        default_button_text: "",
+        default_view_temp: view_temp_dict.basic_stimulus,
+        default_answer_temp: answer_contain_dict.slider_rating,
+        default_handle_response: enable_response_dict.slider_rating
+    },
+    textbox_input: {
+        type: "trial",
+        default_title: "",
+        default_button_text: "",
+        default_view_temp: view_temp_dict.basic_stimulus,
+        default_answer_temp: answer_contain_dict.textbox_input,
+        default_handle_response: enable_response_dict.textbox_input
+    },
+    dropdown_choice: {
+        type: "trial",
+        default_title: "",
+        default_button_text: "",
+        default_view_temp: view_temp_dict.basic_stimulus,
+        default_answer_temp: answer_contain_dict.dropdown_choice,
+        default_handle_response: enable_response_dict.dropdown_choice
+    },
+    rating_scale: {
+        type: "trial",
+        default_title: "",
+        default_button_text: "",
+        default_view_temp: view_temp_dict.basic_stimulus,
+        default_answer_temp: answer_contain_dict.rating_scale,
+        default_handle_response: enable_response_dict.button_choice
+    },
+    sentence_choice: {
+        type: "trial",
+        default_title: "",
+        default_button_text: "",
+        default_view_temp: view_temp_dict.basic_stimulus,
+        default_answer_temp: answer_contain_dict.sentence_choice,
+        default_handle_response: enable_response_dict.button_choice
+    },
+    image_selection: {
+        type: "trial",
+        default_title: "",
+        default_button_text: "",
+        default_view_temp: view_temp_dict.basic_stimulus,
+        default_answer_temp: answer_contain_dict.image_selection,
+        default_handle_response: enable_response_dict.button_choice
+    },
+    self_paced_reading: {
+        type: "trial",
+        default_title: "",
+        default_button_text: "",
+        default_view_temp: view_temp_dict.self_paced_reading,
+        default_answer_temp: answer_contain_dict.button_choice,
+        default_handle_response: enable_response_dict.self_paced_reading
+    },
+    self_paced_reading_rating_scale: {
+        type: "trial",
+        default_title: "",
+        default_button_text: "",
+        default_view_temp: view_temp_dict.self_paced_reading,
+        default_answer_temp: answer_contain_dict.rating_scale,
+        default_handle_response: enable_response_dict.self_paced_reading
+    }
+
 
 };
 

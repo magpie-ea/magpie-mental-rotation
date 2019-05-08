@@ -260,3 +260,75 @@ const begin = trial_type_view("begin",{
             Tell your participants what they are to do here.`,
     buttonText: 'go to trials'
 });
+
+const dropdown_choice = trial_type_view("dropdown_choice",{
+    trials: 3,
+    name: 'dropdown_choice',
+    trial_type: 'dropdown_choice',
+    data: main_trials.dropdownChoice
+});
+
+const sentence_choice = trial_type_view("sentence_choice", {
+    trials: 2,
+    name: 'sentence_choice',
+    trial_type: 'sentence_choice',
+    data: main_trials.sentenceChoice
+});
+
+const image_selection = trial_type_view("image_selection",{
+    trials: 2,
+    name: 'image_selection',
+    trial_type: 'image_selection',
+    data: main_trials.imageSelection
+});
+
+const textbox_input = trial_type_view("textbox_input",{
+    trials: 2,
+    name: 'textbox_input',
+    trial_type: 'textbox_input',
+    data: main_trials.textboxInput,
+    pause: 500,
+    stim_duration: 'space'
+});
+
+// part of the trial flow sample
+const slider_rating = trial_type_view("slider_rating",{
+    trials: 3,
+    name: 'slider_rating',
+    trial_type: 'slider_rating',
+    data: main_trials.sliderRating,
+    pause: 500,
+    fix_duration: 1000,
+    stim_duration: 1500
+});
+
+// part of the hooks and custom events sample
+const rating_scale = trial_type_view("rating_scale",{
+    trials: 2,
+    name: 'rating_scale',
+    trial_type: 'rating_scale',
+    data: main_trials.ratingScale,
+    fix_duration: 500,
+    stim_duration: 'space',
+    hook: {
+        after_stim_shown: myEvents.timeShown,
+        after_stim_hidden: myEvents.timeHidden
+    }
+});
+
+const spr = trial_type_view("self_paced_reading",{
+    trials: 4,
+    name: 'spr',
+    trial_type: 'spr',
+    data: main_trials.spr,
+    pause: 300,
+    fix_duration: 500,
+    stim_duration: 1000
+});
+
+const spr_rating_scale = trial_type_view("self_paced_reading_rating_scale",{
+    trials: 2,
+    name: 'spr_rating_scale',
+    trial_type: 'spr_rating_scale',
+    data: main_trials.spr_rs,
+});
