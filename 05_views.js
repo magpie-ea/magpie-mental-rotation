@@ -48,7 +48,7 @@ const instructions = trial_type_view("instructions",{
 
 
 // In the post test questionnaire you can ask your participants addtional questions
-const post_test = babeViews.postTest({
+const post_test = trial_type_view("post_test",{
     trials: 1,
     name: 'post_test',
     title: 'Additional information',
@@ -71,7 +71,7 @@ const post_test = babeViews.postTest({
 });
 
 // The 'thanks' view is crucial; never delete it; it submits the results!
-const thanks = babeViews.thanks({
+const thanks = trial_type_view("thanks", {
     trials: 1,
     name: 'thanks',
     title: 'Thank you for taking part in this experiment!',

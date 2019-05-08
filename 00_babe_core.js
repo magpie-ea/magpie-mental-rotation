@@ -29,6 +29,36 @@ save_config_trial_data = function(config_info, trial_data) {
     return trial_data;
 };
 
+// Fill defaults post_test
+fill_defaults_post_test = function(config) {
+    return {
+        age: {
+            title: babeUtils.view.setter.prop(config.age_question, "Age")
+        },
+        gender: {
+            title: babeUtils.view.setter.prop(config.gender_question, "Gender"),
+            male: babeUtils.view.setter.prop(config.gender_male, "male"),
+            female: babeUtils.view.setter.prop(config.gender_female, "female"),
+            other: babeUtils.view.setter.prop(config.gender_other, "other")
+        },
+        edu: {
+            title: babeUtils.view.setter.prop(config.edu_question, "Level of Education"),
+            graduated_high_school: babeUtils.view.setter.prop(config.edu_graduated_high_school,
+                "Graduated High School"),
+            graduated_college: babeUtils.view.setter.prop(config.edu_graduated_college, "Graduated College"),
+            higher_degree: babeUtils.view.setter.prop(config.edu_higher_degree, "Higher Degree")
+        },
+        langs: {
+            title: babeUtils.view.setter.prop(config.languages_question, "Native Languages"),
+            text: babeUtils.view.setter.prop(config.languages_more,
+                "(i.e. the language(s) spoken at home when you were a child)")
+        },
+        comments: {
+            title: babeUtils.view.setter.prop(config.comments_question, "Further Comments")
+        }
+    };
+};
+
 
 // The following 3 dicts will be moved to babe-templates.js or something similar
 
@@ -62,7 +92,18 @@ const view_temp_dict = {
                     <section class="babe-text-container">
                         <p class="babe-view-text">${config.text}</p>
                     </section>
-                </div>`
+                </div>`;
+    },
+    "post_test": function(config, CT) {
+        return `<div class='babe-view babe-post-test-view'>
+                    <h1 class='babe-view-title'>${config.title}</h1>
+                    <section class="babe-text-container">
+                        <p class="babe-view-text">${config.text}</p>
+                    </section>
+                </div>`;
+    },
+    "empty": function(config, CT) {
+        return ``;
     }
 };
 
@@ -87,6 +128,45 @@ const answer_contain_dict = {
         return `<button id="next" class='babe-view-button' class="babe-nodisplay">${
                         config.button
                     }</button>`
+    },
+    "post_test": function(config, CT) {
+        const quest = fill_defaults_post_test(config);
+        return `<form>
+                    <p class='babe-view-text'>
+                        <label for="age">${quest.age.title}:</label>
+                        <input type="number" name="age" min="18" max="110" id="age" />
+                    </p>
+                    <p class='babe-view-text'>
+                        <label for="gender">${quest.gender.title}:</label>
+                        <select id="gender" name="gender">
+                            <option></option>
+                            <option value="${quest.gender.male}">${quest.gender.male}</option>
+                            <option value="${quest.gender.female}">${quest.gender.female}</option>
+                            <option value="${quest.gender.other}">${quest.gender.other}</option>
+                        </select>
+                    </p>
+                    <p class='babe-view-text'>
+                        <label for="education">${quest.edu.title}:</label>
+                        <select id="education" name="education">
+                            <option></option>
+                            <option value="${quest.edu.graduated_high_school}">${quest.edu.graduated_high_school}</option>
+                            <option value="${quest.edu.graduated_college}">${quest.edu.graduated_college}</option>
+                            <option value="${quest.edu.higher_degree}">${quest.edu.higher_degree}</option>
+                        </select>
+                    </p>
+                    <p class='babe-view-text'>
+                        <label for="languages" name="languages">${quest.langs.title}:<br /><span>${quest.langs.text}</</span></label>
+                        <input type="text" id="languages"/>
+                    </p>
+                    <p class="babe-view-text">
+                        <label for="comments">${quest.comments.title}</label>
+                        <textarea name="comments" id="comments" rows="6" cols="40"></textarea>
+                    </p>
+                    <button id="next" class='babe-view-button'>${config.button}</button>
+            </form>`
+    },
+    "empty": function(config, CT) {
+        return ``;
     }
 };
 
@@ -210,6 +290,81 @@ const enable_response_dict = {
         $("#next").on("click", function() {
             babe.findNextView();
         });
+    },
+    "post_test": function(config, CT, babe, answer_container_generator, startingTime) {
+        $(".babe-view").append(answer_container_generator(config, CT));
+
+        $("#next").on("click", function(e) {
+            // prevents the form from submitting
+            e.preventDefault();
+
+            // records the post test info
+            babe.global_data.age = $("#age").val();
+            babe.global_data.gender = $("#gender").val();
+            babe.global_data.education = $("#education").val();
+            babe.global_data.languages = $("#languages").val();
+            babe.global_data.comments = $("#comments")
+                .val()
+                .trim();
+            babe.global_data.endTime = Date.now();
+            babe.global_data.timeSpent =
+                (babe.global_data.endTime -
+                    babe.global_data.startTime) /
+                60000;
+
+            // moves to the next view
+            babe.findNextView();
+        });
+    },
+    "thanks": function(config, CT, babe, answer_container_generator, startingTime) {
+        const prolificConfirmText = babeUtils.view.setter.prolificConfirmText(config.prolificConfirmText,
+            "Please press the button below to confirm that you completed the experiment with Prolific");
+        if (
+            babe.deploy.is_MTurk ||
+            babe.deploy.deployMethod === "directLink" ||
+            babe.deploy.deployMethod === "localServer"
+        ) {
+            // updates the fields in the hidden form with info for the MTurk's server
+            $("#main").html(
+                `<div class='babe-view babe-thanks-view'>
+                            <h2 id='warning-message' class='babe-warning'>Submitting the data
+                                <p class='babe-view-text'>please do not close the tab</p>
+                                <div class='babe-loader'></div>
+                            </h2>
+                            <h1 id='thanks-message' class='babe-thanks babe-nodisplay'>${
+                    config.title
+                    }</h1>
+                        </div>`
+            );
+        } else if (babe.deploy.deployMethod === "Prolific") {
+            $("#main").html(
+                `<div class='babe-view babe-thanks-view'>
+                            <h2 id='warning-message' class='babe-warning'>Submitting the data
+                                <p class='babe-view-text'>please do not close the tab</p>
+                                <div class='babe-loader'></div>
+                            </h2>
+                            <h1 id='thanks-message' class='babe-thanks babe-nodisplay'>${
+                    config.title
+                    }</h1>
+                            <p id='extra-message' class='babe-view-text babe-nodisplay'>
+                                ${prolificConfirmText}
+                                <a href="${
+                    babe.deploy.prolificURL
+                    }" class="babe-view-button prolific-url">Confirm</a>
+                            </p>
+                        </div>`
+            );
+        } else if (babe.deploy.deployMethod === "debug") {
+            $("main").html(
+                `<div id='babe-debug-table-container' class='babe-view babe-thanks-view'>
+                            <h1 class='babe-view-title'>Debug Mode</h1>
+                        </div>`
+            );
+        } else {
+            console.error("No such babe.deploy.deployMethod");
+        }
+
+        babe.submission.submit(babe);
     }
 };
 
@@ -237,6 +392,22 @@ const view_info_dict = {
         default_view_temp: view_temp_dict.fixed_text,
         default_answer_temp: answer_contain_dict.one_button,
         default_handle_response: enable_response_dict.one_click
+    },
+    "post_test": {
+        type: "wrapping",
+        default_title: "Additional Information",
+        default_button_text: "Next",
+        default_view_temp: view_temp_dict.post_test,
+        default_answer_temp: answer_contain_dict.post_test,
+        default_handle_response: enable_response_dict.post_test
+    },
+    "thanks": {
+        type: "wrapping",
+        default_title: "Thank you for taking part in this experiment!",
+        default_button_text: "",
+        default_view_temp: view_temp_dict.empty,
+        default_answer_temp: answer_contain_dict.empty,
+        default_handle_response: enable_response_dict.thanks
     },
     "forced_choice": {
         type: "trial",
@@ -299,8 +470,11 @@ const trial_type_view = function(trial_type, config,
             }
 
             // First we will set the question and the QUD to "", to avoid Undefined
-            config.data[CT].question = babeUtils.view.setter.question(config.data[CT].question);
-            config.data[CT].QUD = babeUtils.view.setter.QUD(config.data[CT].QUD);
+            if (view_info_dict[trial_type].type === "trial") {
+                config.data[CT].question = babeUtils.view.setter.question(config.data[CT].question);
+                config.data[CT].QUD = babeUtils.view.setter.QUD(config.data[CT].QUD);
+            }
+
 
             // Now we will display the view template
             $("#main").html(view_template_generator(config, CT));
