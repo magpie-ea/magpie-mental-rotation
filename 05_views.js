@@ -112,7 +112,7 @@ const forced_choice_2A = trial_type_view("forced_choice", {
 });
 
 // Here, we initialize a forced_choice view with a custom view template
-// We added our custom css style custom-qud, to the view template
+// We added our custom css style custom-border, to the view template
 const forced_choice_custom_view_template = trial_type_view(
     "forced_choice",
     {
@@ -127,7 +127,7 @@ const forced_choice_custom_view_template = trial_type_view(
         view_template_generator: function (config, CT) {
         return `<div class='babe-view'>
                     <h1 class='babe-view-title'>${config.title}</h1>
-                    <h1 class='babe-view-title custom-qud'>Brand new <span style="color:darkred">silly title</span>!</h1>
+                    <h1 class='babe-view-title custom-border'>Brand new <span style="color:darkred">silly title</span>!</h1>
                     <p class='babe-view-question babe-view-qud'>${config.data[CT].QUD}</p>
                     <div class='babe-view-stimulus-container'>
                         <div class='babe-view-stimulus babe-nodisplay'></div>
