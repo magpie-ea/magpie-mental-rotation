@@ -17,10 +17,12 @@ $("document").ready(function() {
         views_seq: [
             intro,
             instructions,
+            button_click,
+            button_until,
             // You can also randomize the order of some views
-            forced_choice_2A,
+            _.shuffle([forced_choice_2A,
             forced_choice_custom_view_template,
-            forced_choice_custom_answer_container,
+            forced_choice_custom_answer_container]),
             key_press,
             multi_dropdown,
             post_test,
@@ -45,7 +47,8 @@ $("document").ready(function() {
                 forced_choice_custom_view_template.name,
                 forced_choice_custom_answer_container.name,
                 key_press.name,
-                multi_dropdown.name
+                multi_dropdown.name,
+                button_click.name
             ],
              // Possible styles are "default", "separate" and "chunks"
             style: "separate",

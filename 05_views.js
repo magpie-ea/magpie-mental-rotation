@@ -191,7 +191,7 @@ const key_press = trial_type_view("key_press",{
           }}]
 });
 
-// Here we initialize a custom multi dropdown task,
+// Here we initialize a customized multi dropdown task,
 // using a custom view_template, answer_container_element and enable_response function
 const multi_dropdown = trial_type_view("multi_dropdown",
     {trials: part_two_trial_info.multi_dropdown.length,
@@ -212,3 +212,27 @@ const multi_dropdown = trial_type_view("multi_dropdown",
 
 // There are many more templates available: 
 // forcedChoice, sliderRating, dropdownChoice, testboxInput, ratingScale, imageSelection, sentenceChoice, keyPress, selfPacedReading and selfPacedReading_ratingScale
+
+// Here we initialize our full custom views
+
+// First, we will initialize our custom press a button view
+const button_click = custom_press_a_button({
+    name: "button_click",
+    trials: 2
+});
+
+// This is a view, were you have to continue until you click on the correct button
+const button_until = custom_press_correct_button({
+    name: "button_until",
+    trials: 3,
+    data: [
+        {
+            target: "first"
+        },
+        {
+           target: "second"
+        },
+        {
+            target: "second"
+        }]
+});
