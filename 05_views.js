@@ -19,7 +19,7 @@
 */
 
 // Every experiment should start with an intro view. Here you can welcome your participants and tell them what the experiment is about
-const intro = trial_type_view("intro",{
+const intro = view_generator("intro",{
     trials: 1,
     name: 'intro',
     // If you use JavaScripts Template String `I am a Template String`, you can use HTML <></> and javascript ${} inside
@@ -35,7 +35,7 @@ const intro = trial_type_view("intro",{
 });
 
 // For most tasks, you need instructions views
-const instructions = trial_type_view("instructions",{
+const instructions = view_generator("instructions",{
     trials: 1,
     name: 'instrucions',
     title: 'General Instructions',
@@ -48,7 +48,7 @@ const instructions = trial_type_view("instructions",{
 
 
 // In the post test questionnaire you can ask your participants addtional questions
-const post_test = trial_type_view("post_test",{
+const post_test = view_generator("post_test",{
     trials: 1,
     name: 'post_test',
     title: 'Additional information',
@@ -71,7 +71,7 @@ const post_test = trial_type_view("post_test",{
 });
 
 // The 'thanks' view is crucial; never delete it; it submits the results!
-const thanks = trial_type_view("thanks", {
+const thanks = view_generator("thanks", {
     trials: 1,
     name: 'thanks',
     title: 'Thank you for taking part in this experiment!',
@@ -102,7 +102,7 @@ const thanks = trial_type_view("thanks", {
 
 
 // Here, we initialize a normal forced_choice view
-const forced_choice_2A = trial_type_view("forced_choice", {
+const forced_choice_2A = view_generator("forced_choice", {
     // This will use all trials specified in `data`, you can user a smaller value (for testing), but not a larger value
     trials: part_one_trial_info.forced_choice.length, 
     // name and trial_type should be identical to the variable name
@@ -113,7 +113,7 @@ const forced_choice_2A = trial_type_view("forced_choice", {
 
 // Here, we initialize a forced_choice view with a custom view template
 // We added our custom css style custom-border, to the view template
-const forced_choice_custom_view_template = trial_type_view(
+const forced_choice_custom_view_template = view_generator(
     "forced_choice",
     {
         // This will use all trials specified in `data`, you can user a smaller value (for testing), but not a larger value
@@ -124,7 +124,7 @@ const forced_choice_custom_view_template = trial_type_view(
         data: part_one_trial_info.forced_choice
     },
     {
-        view_template_generator: function (config, CT) {
+        stimulus_container_generator: function (config, CT) {
         return `<div class='babe-view'>
                     <h1 class='babe-view-title'>${config.title}</h1>
                     <h1 class='babe-view-title custom-border'>Brand new <span style="color:darkred">silly title</span>!</h1>
@@ -139,7 +139,7 @@ const forced_choice_custom_view_template = trial_type_view(
 
 // Here, we initialize a forced_choice view with a custom answer container
 // We added an additional title above the question
-const forced_choice_custom_answer_container = trial_type_view(
+const forced_choice_custom_answer_container = view_generator(
     "forced_choice",
     {
         // This will use all trials specified in `data`, you can user a smaller value (for testing), but not a larger value
@@ -150,7 +150,7 @@ const forced_choice_custom_answer_container = trial_type_view(
         data: part_one_trial_info.forced_choice
     },
     {
-        answer_container_element_generator:  function (config, CT) {
+        answer_container_generator:  function (config, CT) {
             return `<div class='babe-view-answer-container'>
                     <h1 class='babe-view-title'>Question:</h1>
                     <p class='babe-view-question'>${config.data[CT].question}</p>
@@ -166,7 +166,7 @@ const forced_choice_custom_answer_container = trial_type_view(
 );
 
 // Here, we initialize a normal keyPress task
-const key_press = trial_type_view("key_press",{
+const key_press = view_generator("key_press",{
     trials: 2,
     name: 'key_press',
     trial_type: 'key_press',
@@ -206,7 +206,7 @@ const key_press = trial_type_view("key_press",{
 
 // Here we initialize a customized multi dropdown task,
 // using a custom view_template, answer_container_element and enable_response function
-const multi_dropdown = trial_type_view("forced_choice",
+const multi_dropdown = view_generator("forced_choice",
     {trials: part_two_trial_info.multi_dropdown.length,
     title: "Complete the sentence",
     QUD: "Choose one option for each missing word in this sentence.",
@@ -218,9 +218,9 @@ const multi_dropdown = trial_type_view("forced_choice",
     // after_pause, after_fix_point, after_stim_shown, after_stim_hidden, after_response_enabled
     hook: {after_response_enabled: time_limit}},
     // We add our custom generators here
-    {view_template_generator: multi_dropdown_gens.temp_gen,
-    answer_container_element_generator: multi_dropdown_gens.container_gen,
-    enable_response_generator: multi_dropdown_gens.response_gen}
+    {stimulus_container_generator: multi_dropdown_gens.stimulus_container_gen,
+    answer_container_generator: multi_dropdown_gens.answer_container_gen,
+    handle_response_function: multi_dropdown_gens.handle_response_function}
 );
 
 // There are many more templates available:
@@ -251,7 +251,7 @@ const button_until = custom_press_correct_button({
 });
 
 // Test of all remaining view types (move to Showroom or similar after the restructuring is finished)
-const begin = trial_type_view("begin",{
+const begin = view_generator("begin",{
     trials: 1,
     name: 'begin',
     text:  `This is a sample begin view.
@@ -261,28 +261,28 @@ const begin = trial_type_view("begin",{
     buttonText: 'go to trials'
 });
 
-const dropdown_choice = trial_type_view("dropdown_choice",{
+const dropdown_choice = view_generator("dropdown_choice",{
     trials: 3,
     name: 'dropdown_choice',
     trial_type: 'dropdown_choice',
     data: main_trials.dropdownChoice
 });
 
-const sentence_choice = trial_type_view("sentence_choice", {
+const sentence_choice = view_generator("sentence_choice", {
     trials: 2,
     name: 'sentence_choice',
     trial_type: 'sentence_choice',
     data: main_trials.sentenceChoice
 });
 
-const image_selection = trial_type_view("image_selection",{
+const image_selection = view_generator("image_selection",{
     trials: 2,
     name: 'image_selection',
     trial_type: 'image_selection',
     data: main_trials.imageSelection
 });
 
-const textbox_input = trial_type_view("textbox_input",{
+const textbox_input = view_generator("textbox_input",{
     trials: 2,
     name: 'textbox_input',
     trial_type: 'textbox_input',
@@ -292,7 +292,7 @@ const textbox_input = trial_type_view("textbox_input",{
 });
 
 // part of the trial flow sample
-const slider_rating = trial_type_view("slider_rating",{
+const slider_rating = view_generator("slider_rating",{
     trials: 3,
     name: 'slider_rating',
     trial_type: 'slider_rating',
@@ -303,7 +303,7 @@ const slider_rating = trial_type_view("slider_rating",{
 });
 
 // part of the hooks and custom events sample
-const rating_scale = trial_type_view("rating_scale",{
+const rating_scale = view_generator("rating_scale",{
     trials: 2,
     name: 'rating_scale',
     trial_type: 'rating_scale',
@@ -316,7 +316,7 @@ const rating_scale = trial_type_view("rating_scale",{
     }
 });
 
-const spr = trial_type_view("self_paced_reading",{
+const spr = view_generator("self_paced_reading",{
     trials: 4,
     name: 'spr',
     trial_type: 'spr',
@@ -326,7 +326,7 @@ const spr = trial_type_view("self_paced_reading",{
     stim_duration: 1000
 });
 
-const spr_rating_scale = trial_type_view("self_paced_reading_rating_scale",{
+const spr_rating_scale = view_generator("self_paced_reading_rating_scale",{
     trials: 2,
     name: 'spr_rating_scale',
     trial_type: 'spr_rating_scale',

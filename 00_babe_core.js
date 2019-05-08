@@ -65,7 +65,7 @@ fill_defaults_post_test = function(config) {
 // The view template dict contains a generator function for every view type we support
 // The generator gets the config dict and CT as input and will generate the babe-view HTML code
 // (Some view templates are the same, e.g. forced_choice and sliderRating)
-const view_temp_dict = {
+const stimulus_container_generators = {
     basic_stimulus: function (config, CT) {
         return `<div class='babe-view'>
                     <h1 class='babe-view-title'>${config.title}</h1>
@@ -123,7 +123,7 @@ const view_temp_dict = {
 // The answer container dict contains a generator function for every view type we support
 // The generator gets the config dict and CT as input and will generate the babe-view-answer-container HTML code
 // (Some answer container elements should be the same, e.g. slider rating and SPR-slider rating)
-const answer_contain_dict = {
+const answer_container_generators = {
     button_choice: function (config, CT) {
         return `<div class='babe-view-answer-container'>
                     <p class='babe-view-question'>${config.data[CT].question}</p>
@@ -263,7 +263,7 @@ const answer_contain_dict = {
 
 // The enable response dict contains a generator function for every view type we support
 // The generator gets the config dict, CT, the answer_container_generator and the startingTime as input
-const enable_response_dict = {
+const handle_response_functions = {
     button_choice: function(config, CT, babe, answer_container_generator, startingTime) {
         $(".babe-view").append(answer_container_generator(config, CT));
 
@@ -643,129 +643,129 @@ const view_info_dict = {
         type: "wrapping",
         default_title: "Welcome!",
         default_button_text: "Next",
-        default_view_temp: view_temp_dict.fixed_text,
-        default_answer_temp: answer_contain_dict.one_button,
-        default_handle_response: enable_response_dict.intro
+        default_view_temp: stimulus_container_generators.fixed_text,
+        default_answer_temp: answer_container_generators.one_button,
+        default_handle_response: handle_response_functions.intro
     },
     instructions: {
         type: "wrapping",
         default_title: "Instructions",
         default_button_text: "Next",
-        default_view_temp: view_temp_dict.fixed_text,
-        default_answer_temp: answer_contain_dict.one_button,
-        default_handle_response: enable_response_dict.one_click
+        default_view_temp: stimulus_container_generators.fixed_text,
+        default_answer_temp: answer_container_generators.one_button,
+        default_handle_response: handle_response_functions.one_click
     },
     begin: {
         type: "wrapping",
         default_title: "Begin",
         default_button_text: "Next",
-        default_view_temp: view_temp_dict.fixed_text,
-        default_answer_temp: answer_contain_dict.one_button,
-        default_handle_response: enable_response_dict.one_click
+        default_view_temp: stimulus_container_generators.fixed_text,
+        default_answer_temp: answer_container_generators.one_button,
+        default_handle_response: handle_response_functions.one_click
     },
     post_test: {
         type: "wrapping",
         default_title: "Additional Information",
         default_button_text: "Next",
-        default_view_temp: view_temp_dict.post_test,
-        default_answer_temp: answer_contain_dict.post_test,
-        default_handle_response: enable_response_dict.post_test
+        default_view_temp: stimulus_container_generators.post_test,
+        default_answer_temp: answer_container_generators.post_test,
+        default_handle_response: handle_response_functions.post_test
     },
     thanks: {
         type: "wrapping",
         default_title: "Thank you for taking part in this experiment!",
         default_button_text: "",
-        default_view_temp: view_temp_dict.empty,
-        default_answer_temp: answer_contain_dict.empty,
-        default_handle_response: enable_response_dict.thanks
+        default_view_temp: stimulus_container_generators.empty,
+        default_answer_temp: answer_container_generators.empty,
+        default_handle_response: handle_response_functions.thanks
     },
     forced_choice: {
         type: "trial",
         default_title: "",
         default_button_text: "",
-        default_view_temp: view_temp_dict.basic_stimulus,
-        default_answer_temp: answer_contain_dict.button_choice,
-        default_handle_response: enable_response_dict.button_choice
+        default_view_temp: stimulus_container_generators.basic_stimulus,
+        default_answer_temp: answer_container_generators.button_choice,
+        default_handle_response: handle_response_functions.button_choice
     },
     key_press: {
         type: "trial",
         default_title: "",
         default_button_text: "",
-        default_view_temp: view_temp_dict.key_press,
-        default_answer_temp: answer_contain_dict.question,
-        default_handle_response: enable_response_dict.key_press
+        default_view_temp: stimulus_container_generators.key_press,
+        default_answer_temp: answer_container_generators.question,
+        default_handle_response: handle_response_functions.key_press
     },
     slider_rating: {
         type: "trial",
         default_title: "",
         default_button_text: "",
-        default_view_temp: view_temp_dict.basic_stimulus,
-        default_answer_temp: answer_contain_dict.slider_rating,
-        default_handle_response: enable_response_dict.slider_rating
+        default_view_temp: stimulus_container_generators.basic_stimulus,
+        default_answer_temp: answer_container_generators.slider_rating,
+        default_handle_response: handle_response_functions.slider_rating
     },
     textbox_input: {
         type: "trial",
         default_title: "",
         default_button_text: "",
-        default_view_temp: view_temp_dict.basic_stimulus,
-        default_answer_temp: answer_contain_dict.textbox_input,
-        default_handle_response: enable_response_dict.textbox_input
+        default_view_temp: stimulus_container_generators.basic_stimulus,
+        default_answer_temp: answer_container_generators.textbox_input,
+        default_handle_response: handle_response_functions.textbox_input
     },
     dropdown_choice: {
         type: "trial",
         default_title: "",
         default_button_text: "",
-        default_view_temp: view_temp_dict.basic_stimulus,
-        default_answer_temp: answer_contain_dict.dropdown_choice,
-        default_handle_response: enable_response_dict.dropdown_choice
+        default_view_temp: stimulus_container_generators.basic_stimulus,
+        default_answer_temp: answer_container_generators.dropdown_choice,
+        default_handle_response: handle_response_functions.dropdown_choice
     },
     rating_scale: {
         type: "trial",
         default_title: "",
         default_button_text: "",
-        default_view_temp: view_temp_dict.basic_stimulus,
-        default_answer_temp: answer_contain_dict.rating_scale,
-        default_handle_response: enable_response_dict.button_choice
+        default_view_temp: stimulus_container_generators.basic_stimulus,
+        default_answer_temp: answer_container_generators.rating_scale,
+        default_handle_response: handle_response_functions.button_choice
     },
     sentence_choice: {
         type: "trial",
         default_title: "",
         default_button_text: "",
-        default_view_temp: view_temp_dict.basic_stimulus,
-        default_answer_temp: answer_contain_dict.sentence_choice,
-        default_handle_response: enable_response_dict.button_choice
+        default_view_temp: stimulus_container_generators.basic_stimulus,
+        default_answer_temp: answer_container_generators.sentence_choice,
+        default_handle_response: handle_response_functions.button_choice
     },
     image_selection: {
         type: "trial",
         default_title: "",
         default_button_text: "",
-        default_view_temp: view_temp_dict.basic_stimulus,
-        default_answer_temp: answer_contain_dict.image_selection,
-        default_handle_response: enable_response_dict.button_choice
+        default_view_temp: stimulus_container_generators.basic_stimulus,
+        default_answer_temp: answer_container_generators.image_selection,
+        default_handle_response: handle_response_functions.button_choice
     },
     self_paced_reading: {
         type: "trial",
         default_title: "",
         default_button_text: "",
-        default_view_temp: view_temp_dict.self_paced_reading,
-        default_answer_temp: answer_contain_dict.button_choice,
-        default_handle_response: enable_response_dict.self_paced_reading
+        default_view_temp: stimulus_container_generators.self_paced_reading,
+        default_answer_temp: answer_container_generators.button_choice,
+        default_handle_response: handle_response_functions.self_paced_reading
     },
     self_paced_reading_rating_scale: {
         type: "trial",
         default_title: "",
         default_button_text: "",
-        default_view_temp: view_temp_dict.self_paced_reading,
-        default_answer_temp: answer_contain_dict.rating_scale,
-        default_handle_response: enable_response_dict.self_paced_reading
+        default_view_temp: stimulus_container_generators.self_paced_reading,
+        default_answer_temp: answer_container_generators.rating_scale,
+        default_handle_response: handle_response_functions.self_paced_reading
     }
 
 
 };
 
 
-// This is the generic trial type view, which will be moved to babe-views.js and replace all current trial type views there
-// Every trial_type_view needs a trial_type and a config dict as input
+// This is the generic view, which will be moved to babe-views.js and replace all current views there
+// Every view_generator needs a view_type and a config dict as input
 // In addition you can pass an optional dict with custom (or from other trial_types) view_template,
 // answer_container and enable_response generators,
 // if you don't pass this dict, it will use the default generators for this trial_type
@@ -773,21 +773,21 @@ const view_info_dict = {
 // otherwise you could create full custom views
 // (you do everything you own, the "only" constraints are that you have a render function
 // and you have to call babe.findNextView(), e.g. you don't need to use babeUtils.view.createTrialDOM)
-const trial_type_view = function(trial_type, config,
-                                 {
-                                     view_template_generator=view_info_dict[trial_type].default_view_temp,
-                                     answer_container_element_generator=view_info_dict[trial_type].default_answer_temp,
-                                     enable_response_generator=view_info_dict[trial_type].default_handle_response
+const view_generator = function(view_type, config,
+                                {
+                                     stimulus_container_generator=view_info_dict[view_type].default_view_temp,
+                                     answer_container_generator=view_info_dict[view_type].default_answer_temp,
+                                     handle_response_function=view_info_dict[view_type].default_handle_response
                                  } = {}
 ) {
     // First it will inspect, if the parameters and the config dict passed are correct
-    if (view_info_dict[trial_type].type === "trial") {
-        babeUtils.view.inspector.missingData(config, trial_type);
+    if (view_info_dict[view_type].type === "trial") {
+        babeUtils.view.inspector.missingData(config, view_type);
     }
-    babeUtils.view.inspector.params(config, trial_type);
+    babeUtils.view.inspector.params(config, view_type);
     // Now, it will set the title of the view to the default title if no title is set and the button
     // (otherwise we would get a Undefined error in the view_template)
-    config.title = babeUtils.view.setter.title(config.title, view_info_dict[trial_type].default_title);
+    config.title = babeUtils.view.setter.title(config.title, view_info_dict[view_type].default_title);
     config.button = babeUtils.view.setter.buttonText(config.buttonText);
 
     // Here, the view gets constructed, every view has a name, CT (current trial in view counter),
@@ -805,14 +805,14 @@ const trial_type_view = function(trial_type, config,
             }
 
             // First we will set the question and the QUD to "", to avoid Undefined
-            if (view_info_dict[trial_type].type === "trial") {
+            if (view_info_dict[view_type].type === "trial") {
                 config.data[CT].question = babeUtils.view.setter.question(config.data[CT].question);
                 config.data[CT].QUD = babeUtils.view.setter.QUD(config.data[CT].QUD);
             }
 
 
             // Now we will display the view template
-            $("#main").html(view_template_generator(config, CT));
+            $("#main").html(stimulus_container_generator(config, CT));
 
             // And measure the starting time
             let startingTime = Date.now();
@@ -825,12 +825,12 @@ const trial_type_view = function(trial_type, config,
                     stim_duration: config.stim_duration,
                     data: config.data[CT],
                     evts: config.hook,
-                    view: trial_type
+                    view: view_type
                 },
                 // After the first three steps of the trial view lifecycle (can all be empty)
                 // We call the following function and interactions are now enabled
                 function() {
-                    enable_response_generator(config, CT, babe, answer_container_element_generator, startingTime)
+                    handle_response_function(config, CT, babe, answer_container_generator, startingTime)
                 }
             );
         }

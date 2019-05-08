@@ -76,7 +76,7 @@ const myEvents = {
 // Here, we will define some generator functions for a multi-dropdown view
 const multi_dropdown_gens = {
     // A generator for our view template
-    temp_gen: function(config, CT){
+    stimulus_container_gen: function(config, CT){
         return `<div class='babe-view'>
                 <h1 class='babe-view-title'>${config.title}</h1>
                 <p class='babe-view-question babe-view-qud'>${config.data[CT].QUD}</p>
@@ -84,7 +84,7 @@ const multi_dropdown_gens = {
                 </div>`;
     },
     // A generator for the answer container
-    container_gen: function (config, CT) {
+    answer_container_gen: function (config, CT) {
         return `<div class='babe-view-answer-container babe-response-dropdown'>
                 ${config.data[CT].sentence_chunk_1}
                 <select id='response1' name='answer_1'>
@@ -105,7 +105,7 @@ const multi_dropdown_gens = {
             </div>`;
     },
     // A generator for the enable response function
-    response_gen: function (config, CT, babe, answer_container_generator, startingTime) {
+    handle_response_function: function (config, CT, babe, answer_container_generator, startingTime) {
         let response1;
         let response2;
 

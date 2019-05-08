@@ -22,7 +22,7 @@ const custom_press_a_button = function(config) {
             // you should save the trial information with babe.trial_data.push(trial_data)
 
             // Normally, you want to display some kind of html, to do this you append your html to the main element
-            // You could use one of our predefined html-templates, with (babe.)view_temp_dict["<view_name>"](config, CT)
+            // You could use one of our predefined html-templates, with (babe.)stimulus_container_generators["<view_name>"](config, CT)
             $("main").html(`<div class='babe-view'>
                 <h1 class='babe-view-title'>Click on one of the buttons!</h1>
                 <button id="first" class='babe-view-button'>First Button</button>
