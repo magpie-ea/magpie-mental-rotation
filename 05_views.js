@@ -191,5 +191,24 @@ const key_press = trial_type_view("key_press",{
           }}]
 });
 
+// Here we initialize a custom multi dropdown task,
+// using a custom view_template, answer_container_element and enable_response function
+const multi_dropdown = trial_type_view("multi_dropdown",
+    {trials: part_two_trial_info.multi_dropdown.length,
+    title: "Complete the sentence",
+    QUD: "Choose one option for each missing word in this sentence.",
+    name: 'multi_dropdown',
+    trial_type: 'multi_dropdown',
+    // You can also randomize (shuffle) the trials of a view
+    data: _.shuffle(part_two_trial_info.multi_dropdown),
+    // There is the possibility to add hooks after different events in the trials life cycle
+    // after_pause, after_fix_point, after_stim_shown, after_stim_hidden, after_response_enabled
+    hook: {after_response_enabled: time_limit}},
+    // We add our custom generators here
+    {view_template_generator: multi_dropdown_gens.temp_gen,
+    answer_container_element_generator: multi_dropdown_gens.container_gen,
+    enable_response_generator: multi_dropdown_gens.response_gen}
+);
+
 // There are many more templates available: 
 // forcedChoice, sliderRating, dropdownChoice, testboxInput, ratingScale, imageSelection, sentenceChoice, keyPress, selfPacedReading and selfPacedReading_ratingScale

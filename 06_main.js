@@ -22,6 +22,7 @@ $("document").ready(function() {
             forced_choice_custom_view_template,
             forced_choice_custom_answer_container,
             key_press,
+            multi_dropdown,
             post_test,
             thanks,
         ],
@@ -43,7 +44,8 @@ $("document").ready(function() {
                 forced_choice_2A.name,
                 forced_choice_custom_view_template.name,
                 forced_choice_custom_answer_container.name,
-                key_press.name
+                key_press.name,
+                multi_dropdown.name
             ],
              // Possible styles are "default", "separate" and "chunks"
             style: "separate",
