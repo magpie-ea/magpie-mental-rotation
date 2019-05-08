@@ -1,0 +1,12 @@
+/* In this file you can overwrite/extend the given babe-styles or declare your own ones */
+
+/* Example of extending a given babe-style */
+/* Display all titles in red */
+.babe-view-title {
+    color: red;
+}
+
+/* Example of declaring your own style */
+.custom-qud {
+   border: 1px solid powderblue;
+}

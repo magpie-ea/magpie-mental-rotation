@@ -14,34 +14,6 @@ const coin = _.sample(["head", "tail"]); // You can flip a coin for your experim
 *
 */
 
-// Function to save all config information
-// Will be moved to babe-utils and generalized to flatten all kind of objects and not only canvas
-save_config_trial_data = function(config_info, trial_data) {
-    for (let prop in config_info) {
-        if (config_info.hasOwnProperty(prop)) {
-            trial_data[prop] = config_info[prop];
-        }
-    }
-
-    if (config_info.canvas !== undefined) {
-        if (config_info.canvas.canvasSettings !== undefined) {
-            for (let prop in config_info.canvas.canvasSettings) {
-                if (config_info.canvas.canvasSettings.hasOwnProperty(prop)) {
-                    trial_data[prop] = config_info.canvas.canvasSettings[prop];
-                }
-            }
-            delete trial_data.canvas.canvasSettings;
-        }
-        for (let prop in config_info.canvas) {
-            if (config_info.canvas.hasOwnProperty(prop)) {
-                trial_data[prop] = config_info.canvas[prop];
-            }
-        }
-        delete trial_data.canvas;
-    }
-    
-    return trial_data;
-};
 
 /* For generating random participant IDs */
     // https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript

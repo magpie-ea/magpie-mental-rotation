@@ -112,6 +112,7 @@ const forced_choice_2A = trial_type_view("forced_choice", {
 });
 
 // Here, we initialize a forced_choice view with a custom view template
+// We added our custom css style custom-qud, to the view template
 const forced_choice_custom_view_template = trial_type_view("forced_choice", {
     // This will use all trials specified in `data`, you can user a smaller value (for testing), but not a larger value
     trials: part_one_trial_info.forced_choice.length,
@@ -122,8 +123,7 @@ const forced_choice_custom_view_template = trial_type_view("forced_choice", {
     {view_template_generator: function (config, CT) {
         return `<div class='babe-view'>
                     <h1 class='babe-view-title'>${config.title}</h1>
-                    <h1 class='babe-view-title'>Second Custom Title</h1>
-                    <p class='babe-view-question babe-view-qud'>${config.data[CT].QUD}</p>
+                    <p class='babe-view-question babe-view-qud custom-qud'>${config.data[CT].QUD}</p>
                     <div class='babe-view-stimulus-container'>
                         <div class='babe-view-stimulus babe-nodisplay'></div>
                     </div>
@@ -132,6 +132,7 @@ const forced_choice_custom_view_template = trial_type_view("forced_choice", {
 });
 
 // Here, we initialize a forced_choice view with a custom answer container
+// We added an additional title above the question
 const forced_choice_custom_answer_container = trial_type_view("forced_choice", {
         // This will use all trials specified in `data`, you can user a smaller value (for testing), but not a larger value
         trials: part_one_trial_info.forced_choice.length,
@@ -151,7 +152,7 @@ const forced_choice_custom_answer_container = trial_type_view("forced_choice", {
         }
 });
 
-// Here, we initialize a keyPress task
+// Here, we initialize a normal keyPress task
 const key_press = trial_type_view("key_press",{
     trials: 2,
     name: 'key_press',

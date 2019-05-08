@@ -1,4 +1,33 @@
-// In this file you can create your own custom view templates
+// This will be moved to babe-project
+
+// Function to save all config information
+// Will be moved to babe-utils and generalized to flatten all kind of objects and not only canvas
+save_config_trial_data = function(config_info, trial_data) {
+    for (let prop in config_info) {
+        if (config_info.hasOwnProperty(prop)) {
+            trial_data[prop] = config_info[prop];
+        }
+    }
+
+    if (config_info.canvas !== undefined) {
+        if (config_info.canvas.canvasSettings !== undefined) {
+            for (let prop in config_info.canvas.canvasSettings) {
+                if (config_info.canvas.canvasSettings.hasOwnProperty(prop)) {
+                    trial_data[prop] = config_info.canvas.canvasSettings[prop];
+                }
+            }
+            delete trial_data.canvas.canvasSettings;
+        }
+        for (let prop in config_info.canvas) {
+            if (config_info.canvas.hasOwnProperty(prop)) {
+                trial_data[prop] = config_info.canvas[prop];
+            }
+        }
+        delete trial_data.canvas;
+    }
+
+    return trial_data;
+};
 
 
 // The following 3 dicts will be moved to babe-templates.js or something similar
@@ -34,14 +63,14 @@ const view_temp_dict = {
 // (Some answer container elements should be the same, e.g. slider rating and SPR-slider rating)
 const answer_contain_dict = {
     "forced_choice": function (config, CT) {
-      return `<div class='babe-view-answer-container'>
+        return `<div class='babe-view-answer-container'>
                     <p class='babe-view-question'>${config.data[CT].question}</p>
                     <label for='o1' class='babe-response-buttons'>${config.data[CT].option1}</label>
                     <input type='radio' name='answer' id='o1' value=${config.data[CT].option1} />
                     <input type='radio' name='answer' id='o2' value=${config.data[CT].option2} />
                     <label for='o2' class='babe-response-buttons'>${config.data[CT].option2}</label>
                 </div>`;
-      },
+    },
     "key_press": function(config, CT) {
         return `<div class='babe-view-answer-container'>
                         <p class='babe-view-question'>${config.data[CT].question}</p>`;
@@ -135,7 +164,7 @@ const trial_type_view = function(trial_type, config,
                                      answer_container_element_generator=answer_contain_dict[trial_type],
                                      enable_response_generator=enable_response_dict[trial_type]
                                  } = {}
-                                 ) {
+) {
     // First it will inspect, if the parameters and the config dict passed are correct
     babeUtils.view.inspector.missingData(config, trial_type);
     babeUtils.view.inspector.params(config, trial_type);
@@ -180,6 +209,6 @@ const trial_type_view = function(trial_type, config,
             );
         }
     };
-    // We return the created view, so that it can be used in 04_views.js
+    // We return the created view, so that it can be used in 05_views.js
     return view;
 };
