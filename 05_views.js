@@ -113,34 +113,44 @@ const forced_choice_2A = trial_type_view("forced_choice", {
 
 // Here, we initialize a forced_choice view with a custom view template
 // We added our custom css style custom-qud, to the view template
-const forced_choice_custom_view_template = trial_type_view("forced_choice", {
-    // This will use all trials specified in `data`, you can user a smaller value (for testing), but not a larger value
-    trials: part_one_trial_info.forced_choice.length,
-    // name and trial_type should be identical to the variable name
-    name: 'forced_choice_custom_view_template',
-    trial_type: 'forced_choice_custom_view_template',
-    data: part_one_trial_info.forced_choice},
-    {view_template_generator: function (config, CT) {
+const forced_choice_custom_view_template = trial_type_view(
+    "forced_choice",
+    {
+        // This will use all trials specified in `data`, you can user a smaller value (for testing), but not a larger value
+        trials: part_one_trial_info.forced_choice.length,
+        // name and trial_type should be identical to the variable name
+        name: 'forced_choice_custom_view_template',
+        trial_type: 'forced_choice_custom_view_template',
+        data: part_one_trial_info.forced_choice
+    },
+    {
+        view_template_generator: function (config, CT) {
         return `<div class='babe-view'>
                     <h1 class='babe-view-title'>${config.title}</h1>
-                    <p class='babe-view-question babe-view-qud custom-qud'>${config.data[CT].QUD}</p>
+                    <h1 class='babe-view-title custom-qud'>Brand new <span style="color:darkred">silly title</span>!</h1>
+                    <p class='babe-view-question babe-view-qud'>${config.data[CT].QUD}</p>
                     <div class='babe-view-stimulus-container'>
                         <div class='babe-view-stimulus babe-nodisplay'></div>
                     </div>
-                </div>`;
+                    </div>`;
+        }
     }
-});
+);
 
 // Here, we initialize a forced_choice view with a custom answer container
 // We added an additional title above the question
-const forced_choice_custom_answer_container = trial_type_view("forced_choice", {
+const forced_choice_custom_answer_container = trial_type_view(
+    "forced_choice",
+    {
         // This will use all trials specified in `data`, you can user a smaller value (for testing), but not a larger value
         trials: part_one_trial_info.forced_choice.length,
         // name and trial_type should be identical to the variable name
         name: 'forced_choice_custom_answer_container',
         trial_type: 'forced_choice_custom_answer_container',
-        data: part_one_trial_info.forced_choice},
-    {answer_container_element_generator:  function (config, CT) {
+        data: part_one_trial_info.forced_choice
+    },
+    {
+        answer_container_element_generator:  function (config, CT) {
             return `<div class='babe-view-answer-container'>
                     <h1 class='babe-view-title'>Question:</h1>
                     <p class='babe-view-question'>${config.data[CT].question}</p>
@@ -148,9 +158,12 @@ const forced_choice_custom_answer_container = trial_type_view("forced_choice", {
                     <input type='radio' name='answer' id='o1' value=${config.data[CT].option1} />
                     <input type='radio' name='answer' id='o2' value=${config.data[CT].option2} />
                     <label for='o2' class='babe-response-buttons'>${config.data[CT].option2}</label>
+                    <input type='radio' name='answer' id='o3' value='A new third option!' />
+                    <label for='o3' class='babe-response-buttons'>A new third option!</label>
                 </div>`;
         }
-});
+    }
+);
 
 // Here, we initialize a normal keyPress task
 const key_press = trial_type_view("key_press",{
@@ -210,7 +223,7 @@ const multi_dropdown = trial_type_view("multi_dropdown",
     enable_response_generator: multi_dropdown_gens.response_gen}
 );
 
-// There are many more templates available: 
+// There are many more templates available:
 // forcedChoice, sliderRating, dropdownChoice, testboxInput, ratingScale, imageSelection, sentenceChoice, keyPress, selfPacedReading and selfPacedReading_ratingScale
 
 // Here we initialize our full custom views
