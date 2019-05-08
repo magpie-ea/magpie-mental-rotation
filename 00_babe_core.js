@@ -36,7 +36,7 @@ save_config_trial_data = function(config_info, trial_data) {
 // The generator gets the config dict and CT as input and will generate the babe-view HTML code
 // (Some view templates are the same, e.g. forced_choice and sliderRating)
 const view_temp_dict = {
-    "forced_choice": function (config, CT) {
+    "basic_stimulus": function (config, CT) {
         return `<div class='babe-view'>
                     <h1 class='babe-view-title'>${config.title}</h1>
                     <p class='babe-view-question babe-view-qud'>${config.data[CT].QUD}</p>
@@ -55,6 +55,14 @@ const view_temp_dict = {
                         <div class='babe-view-stimulus babe-nodisplay'></div>
                     </div>
                 </div>`;
+    },
+    "fixed_text": function(config, CT) {
+        return `<div class='babe-view'>
+                    <h1 class='babe-view-title'>${config.title}</h1>
+                    <section class="babe-text-container">
+                        <p class="babe-view-text">${config.text}</p>
+                    </section>
+                </div>`
     }
 };
 
@@ -62,7 +70,7 @@ const view_temp_dict = {
 // The generator gets the config dict and CT as input and will generate the babe-view-answer-container HTML code
 // (Some answer container elements should be the same, e.g. slider rating and SPR-slider rating)
 const answer_contain_dict = {
-    "forced_choice": function (config, CT) {
+    "button_choice": function (config, CT) {
         return `<div class='babe-view-answer-container'>
                     <p class='babe-view-question'>${config.data[CT].question}</p>
                     <label for='o1' class='babe-response-buttons'>${config.data[CT].option1}</label>
@@ -71,16 +79,21 @@ const answer_contain_dict = {
                     <label for='o2' class='babe-response-buttons'>${config.data[CT].option2}</label>
                 </div>`;
     },
-    "key_press": function(config, CT) {
+    "question": function(config, CT) {
         return `<div class='babe-view-answer-container'>
                         <p class='babe-view-question'>${config.data[CT].question}</p>`;
+    },
+    "one_button": function (config, CT) {
+        return `<button id="next" class='babe-view-button' class="babe-nodisplay">${
+                        config.button
+                    }</button>`
     }
 };
 
 // The enable response dict contains a generator function for every view type we support
 // The generator gets the config dict, CT, the answer_container_generator and the startingTime as input
 const enable_response_dict = {
-    "forced_choice": function(config, CT, babe, answer_container_generator, startingTime) {
+    "button_choice": function(config, CT, babe, answer_container_generator, startingTime) {
         $(".babe-view").append(answer_container_generator(config, CT));
 
         // attaches an event listener to the yes / no radio inputs
@@ -90,7 +103,7 @@ const enable_response_dict = {
         $("input[name=answer]").on("change", function() {
             const RT = Date.now() - startingTime;
             let trial_data = {
-                trial_type: config.trial_type,
+                trial_name: config.name,
                 trial_number: CT + 1,
                 response: $("input[name=answer]:checked").val(),
                 RT: RT
@@ -125,7 +138,7 @@ const enable_response_dict = {
                 }
 
                 let trial_data = {
-                    trial_type: config.trial_type,
+                    trial_name: config.name,
                     trial_number: CT + 1,
                     key_pressed: keyPressed,
                     correctness: correctness,
@@ -146,8 +159,79 @@ const enable_response_dict = {
         };
 
         $("body").on("keydown", handleKeyPress);
+    },
+    "intro": function(config, CT, babe, answer_container_generator, startingTime) {
+
+        $(".babe-view").append(answer_container_generator(config, CT));
+
+        let prolificId;
+        const prolificForm = `<p id="prolific-id-form">
+                    <label for="prolific-id">Please, enter your Prolific ID</label>
+                    <input type="text" id="prolific-id" />
+                </p>`;
+
+        const next = $("#next");
+
+        function showNextBtn() {
+            if (prolificId.val().trim() !== "") {
+                next.removeClass("babe-nodisplay");
+            } else {
+                next.addClass("babe-nodisplay");
+            }
+        }
+
+        if (babe.deploy.deployMethod === "Prolific") {
+            $(".babe-text-container").append(prolificForm);
+            next.addClass("babe-nodisplay");
+            prolificId = $("#prolific-id");
+
+            prolificId.on("keyup", function() {
+                showNextBtn();
+            });
+
+            prolificId.on("focus", function() {
+                showNextBtn();
+            });
+        }
+
+        // moves to the next view
+        next.on("click", function() {
+            if (babe.deploy.deployMethod === "Prolific") {
+                babe.global_data.prolific_id = prolificId.val().trim();
+            }
+
+            babe.findNextView();
+        });
     }
 };
+
+const view_info_dict = {
+    "intro": {
+        type: "wrapping",
+        default_title: "Welcome!",
+        default_button_text: "Next",
+        default_view_temp: view_temp_dict.fixed_text,
+        default_answer_temp: answer_contain_dict.one_button,
+        default_handle_response: enable_response_dict.intro
+    },
+    "forced_choice": {
+        type: "trial",
+        default_title: "",
+        default_button_text: "",
+        default_view_temp: view_temp_dict.basic_stimulus,
+        default_answer_temp: answer_contain_dict.button_choice,
+        default_handle_response: enable_response_dict.button_choice
+    },
+    "key_press": {
+        type: "trial",
+        default_title: "",
+        default_button_text: "",
+        default_view_temp: view_temp_dict.key_press,
+        default_answer_temp: answer_contain_dict.question,
+        default_handle_response: enable_response_dict.key_press
+    }
+};
+
 
 // This is the generic trial type view, which will be moved to babe-views.js and replace all current trial type views there
 // Every trial_type_view needs a trial_type and a config dict as input
@@ -160,17 +244,20 @@ const enable_response_dict = {
 // and you have to call babe.findNextView(), e.g. you don't need to use babeUtils.view.createTrialDOM)
 const trial_type_view = function(trial_type, config,
                                  {
-                                     view_template_generator=view_temp_dict[trial_type],
-                                     answer_container_element_generator=answer_contain_dict[trial_type],
-                                     enable_response_generator=enable_response_dict[trial_type]
+                                     view_template_generator=view_info_dict[trial_type].default_view_temp,
+                                     answer_container_element_generator=view_info_dict[trial_type].default_answer_temp,
+                                     enable_response_generator=view_info_dict[trial_type].default_handle_response
                                  } = {}
 ) {
     // First it will inspect, if the parameters and the config dict passed are correct
-    babeUtils.view.inspector.missingData(config, trial_type);
+    if (view_info_dict[trial_type].type === "trial") {
+        babeUtils.view.inspector.missingData(config, trial_type);
+    }
     babeUtils.view.inspector.params(config, trial_type);
-    // Now, it will set the title of the view to "" if no title is set
+    // Now, it will set the title of the view to the default title if no title is set and the button
     // (otherwise we would get a Undefined error in the view_template)
-    config.title = babeUtils.view.setter.title(config.title, "");
+    config.title = babeUtils.view.setter.title(config.title, view_info_dict[trial_type].default_title);
+    config.button = babeUtils.view.setter.buttonText(config.buttonText);
 
     // Here, the view gets constructed, every view has a name, CT (current trial in view counter),
     // trials (number of trials of this view) and a render function
@@ -180,6 +267,11 @@ const trial_type_view = function(trial_type, config,
         trials: config.trials,
         // The render function gets the babe object as well as the current trial in view counter as input
         render: function(CT, babe){
+
+            // If no data is passed (e.g. wrapping views), generate empty config.data[CT] objects
+            if (typeof config.data === 'undefined'){
+                config.data = _.fill(Array(config.trials), {});
+            }
 
             // First we will set the question and the QUD to "", to avoid Undefined
             config.data[CT].question = babeUtils.view.setter.question(config.data[CT].question);

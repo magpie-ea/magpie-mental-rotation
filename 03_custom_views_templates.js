@@ -33,7 +33,7 @@ const custom_press_a_button = function(config) {
             const handle_click = function(e) {
                 // We will just save the response and continue to the next view
                 let trial_data = {
-                    trial_type: config.name,
+                    trial_name: config.name,
                     trial_number: CT + 1,
                     response: e.target.id
                 };
@@ -86,7 +86,7 @@ const custom_press_correct_button = function(config) {
                     if (e.target.id === config.data[CT].target){
                         // We will just save the response and continue to the next view
                         let trial_data = {
-                            trial_type: config.name,
+                            trial_name: config.name,
                             trial_number: CT + 1,
                             response: e.target.id,
                             // How long did it take?

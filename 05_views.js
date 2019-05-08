@@ -19,7 +19,7 @@
 */
 
 // Every experiment should start with an intro view. Here you can welcome your participants and tell them what the experiment is about
-const intro = babeViews.intro({
+const intro = trial_type_view("intro",{
     trials: 1,
     name: 'intro',
     // If you use JavaScripts Template String `I am a Template String`, you can use HTML <></> and javascript ${} inside
@@ -206,7 +206,7 @@ const key_press = trial_type_view("key_press",{
 
 // Here we initialize a customized multi dropdown task,
 // using a custom view_template, answer_container_element and enable_response function
-const multi_dropdown = trial_type_view("multi_dropdown",
+const multi_dropdown = trial_type_view("forced_choice",
     {trials: part_two_trial_info.multi_dropdown.length,
     title: "Complete the sentence",
     QUD: "Choose one option for each missing word in this sentence.",
