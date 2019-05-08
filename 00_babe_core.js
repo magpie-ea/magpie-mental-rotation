@@ -202,6 +202,14 @@ const enable_response_dict = {
 
             babe.findNextView();
         });
+    },
+    "one_click": function(config, CT, babe, answer_container_generator, startingTime) {
+
+        $(".babe-view").append(answer_container_generator(config, CT));
+
+        $("#next").on("click", function() {
+            babe.findNextView();
+        });
     }
 };
 
@@ -213,6 +221,22 @@ const view_info_dict = {
         default_view_temp: view_temp_dict.fixed_text,
         default_answer_temp: answer_contain_dict.one_button,
         default_handle_response: enable_response_dict.intro
+    },
+    "instructions": {
+        type: "wrapping",
+        default_title: "Instructions",
+        default_button_text: "Next",
+        default_view_temp: view_temp_dict.fixed_text,
+        default_answer_temp: answer_contain_dict.one_button,
+        default_handle_response: enable_response_dict.one_click
+    },
+    "begin": {
+        type: "wrapping",
+        default_title: "Begin",
+        default_button_text: "Next",
+        default_view_temp: view_temp_dict.fixed_text,
+        default_answer_temp: answer_contain_dict.one_button,
+        default_handle_response: enable_response_dict.one_click
     },
     "forced_choice": {
         type: "trial",
@@ -229,7 +253,8 @@ const view_info_dict = {
         default_view_temp: view_temp_dict.key_press,
         default_answer_temp: answer_contain_dict.question,
         default_handle_response: enable_response_dict.key_press
-    }
+    },
+
 };
 
 

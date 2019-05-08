@@ -25,6 +25,7 @@ $("document").ready(function() {
             forced_choice_custom_answer_container]),
             key_press,
             multi_dropdown,
+            begin,
             post_test,
             thanks,
         ],

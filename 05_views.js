@@ -35,7 +35,7 @@ const intro = trial_type_view("intro",{
 });
 
 // For most tasks, you need instructions views
-const instructions = babeViews.instructions({
+const instructions = trial_type_view("instructions",{
     trials: 1,
     name: 'instrucions',
     title: 'General Instructions',
@@ -248,4 +248,15 @@ const button_until = custom_press_correct_button({
         {
             target: "second"
         }]
+});
+
+// Test of all remaining view types (move to Showroom or similar after the restructuring is finished)
+const begin = trial_type_view("begin",{
+    trials: 1,
+    name: 'begin',
+    text:  `This is a sample begin view.
+            <br />
+            <br />
+            Tell your participants what they are to do here.`,
+    buttonText: 'go to trials'
 });

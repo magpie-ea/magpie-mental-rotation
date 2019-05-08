@@ -122,7 +122,7 @@ const multi_dropdown_gens = {
             clearTimeout(window.timeout[0]);
             window.timeout.shift();
             let trial_data = {
-                trial_name: config.trial_name,
+                trial_name: config.name,
                 trial_number: CT + 1,
                 sentence_frame: config.data[CT].sentence_chunk_1
                     .concat("...")
