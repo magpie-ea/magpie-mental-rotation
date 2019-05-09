@@ -17,7 +17,6 @@ $("document").ready(function() {
         views_seq: [
             intro,
             instructions,
-            // You can also randomize the order of some views
             forced_choice_2A,
             post_test,
             thanks,
