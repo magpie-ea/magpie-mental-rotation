@@ -22,8 +22,6 @@ You can have a look at the experiment [here](https://departure-point.netlify.com
 
 ### Changing the `departure point` to your own experiment
 
-- You can find more general explanations of the elements relevant for setting up a _babe experiment [here](https://github.com/babe-project/babe-project#Usage)
-
 - Usually, you might just want to manipulate the following files:
 	- `01_custom_functions.js` :: (optional) contains custom functions, variables and hooks (e.g. a global coin flip)
 	- `02_custom_views_templates.js` :: (optional) contains user-defined special-purpose view templates (only needed, if the provided view templates are not enough for your experiment)
