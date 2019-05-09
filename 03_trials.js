@@ -1,7 +1,7 @@
 // In this file you can specify the trial data for your experiment
 
 
-const part_one_trial_info = {
+const trial_info = {
     forced_choice: [
         {
             question: "What's on the bread?",
@@ -16,23 +16,4 @@ const part_one_trial_info = {
             option2: "rainbow"
         }
     ],
-};
-
-const part_two_trial_info = {
-    multi_dropdown: [
-        {
-            sentence_chunk_1: "Some of the",
-            sentence_chunk_2: "are",
-            sentence_chunk_3: "today.",
-            choice_options_1: ["cats", "dogs"],
-            choice_options_2: ["happy", "hungry", "sad"]
-        },
-        {
-            sentence_chunk_1: "All of the",
-            sentence_chunk_2: "will be",
-            sentence_chunk_3: "tomorrow.",
-            choice_options_1: ["cats", "dogs"],
-            choice_options_2: ["happy", "hungry", "sad"]
-        }
-    ]
 };
