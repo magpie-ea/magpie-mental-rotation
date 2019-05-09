@@ -15,5 +15,5 @@ const trial_info = {
             option1: "shiny",
             option2: "rainbow"
         }
-    ],
+    ]
 };

@@ -114,4 +114,3 @@ const forced_choice_2A = babeViews.forcedChoice({
 // There are many more templates available:
 // forcedChoice, sliderRating, dropdownChoice, testboxInput, ratingScale, imageSelection, sentenceChoice, keyPress, selfPacedReading and selfPacedReading_ratingScale
 
-// If the provided templates are not enough, we can just create custom view templates in 02_custom_views_templates.js and use them here
