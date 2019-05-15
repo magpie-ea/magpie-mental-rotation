@@ -111,14 +111,6 @@ const forced_choice_2A = babeViews.view_generator("forced_choice", {
     data: trial_info.forced_choice
 });
 
-const forced_choice_2A_MF = babeViews.view_generator("forced_choice", {
-    // This will use all trials specified in `data`, you can user a smaller value (for testing), but not a larger value
-    trials: trial_info.forced_choice.length,
-    // name should be identical to the variable name
-    name: 'forced_choice_2A',
-    data: trial_info.forced_choice
-});
-
 // There are many more templates available:
 // forced_choice, slider_rating, dropdown_choice, testbox_input, rating_scale, image_selection, sentence_choice,
 // key_press, self_paced_reading and self_paced_reading_rating_scale
