@@ -17,23 +17,7 @@ $("document").ready(function() {
         views_seq: [
             intro,
             instructions,
-            button_click,
-            button_until,
-            // You can also randomize the order of some views
-            _.shuffle([forced_choice_2A,
-            forced_choice_custom_view_template,
-            forced_choice_custom_answer_container]),
-            key_press,
-            multi_dropdown,
-            begin,
-            dropdown_choice,
-            sentence_choice,
-            image_selection,
-            textbox_input,
-            slider_rating,
-            rating_scale,
-            spr,
-            spr_rating_scale,
+            forced_choice_2A,
             post_test,
             thanks,
         ],
@@ -53,32 +37,10 @@ $("document").ready(function() {
             in: [
                 // list the view-names of the views for which you want a progress bar
                 forced_choice_2A.name,
-                forced_choice_custom_view_template.name,
-                forced_choice_custom_answer_container.name,
-                key_press.name,
-                multi_dropdown.name,
-                button_click.name,
-                dropdown_choice.name,
-                sentence_choice.name,
-                image_selection.name,
-                textbox_input.name,
-                slider_rating.name,
-                rating_scale.name,
-                spr.name,
-                spr_rating_scale.name,
             ],
              // Possible styles are "default", "separate" and "chunks"
             style: "separate",
             width: 100
-        },
-        timer: {
-            // Defaults:
-            minutes: 1, // How many minutes the timer should run
-            // show_info_time: 0.2, // Percentage of time left, after which the user gets informed
-            // snack_text: "Still here?", // Text on the information bar
-            // show_info_time_time: true, // Also show the remaining time on the bar
-            // new_title: "Still here?", // New page title that is flashed
-            // end_function: function() {location.reload(true)} // Function that is invoked after timeout (page refresh)
         }
     });
 });

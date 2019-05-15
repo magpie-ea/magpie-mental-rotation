@@ -30,7 +30,7 @@ const intro = babeViews.view_generator("intro",{
             about the experiment. You are in the <strong>${coin}</strong> group.
             <br />
             <br />
-            This is a minimal experiment with two views, one template, one custom made. It can serve as a starting point for programming your own experiment.`,
+            This is a minimal experiment with one forced choice view. It can serve as a starting point for programming your own experiment.`,
    buttonText: 'Begin the experiment'    
 });
 
@@ -84,7 +84,7 @@ const thanks = babeViews.view_generator("thanks", {
 
     - trials: int - the number of trials this view will appear
     - name: string - the name of the view type as it shall be known to _babe (e.g. for use with a progress bar)
-    - trial_type: string - the name of the trial type as you want it to appear in the submitted data
+            and the name of the trial as you want it to appear in the submitted data
     - data: array - an array of trial objects
 
 * Optional properties
@@ -104,218 +104,12 @@ const thanks = babeViews.view_generator("thanks", {
 // Here, we initialize a normal forced_choice view
 const forced_choice_2A = babeViews.view_generator("forced_choice", {
     // This will use all trials specified in `data`, you can user a smaller value (for testing), but not a larger value
-    trials: part_one_trial_info.forced_choice.length, 
+    trials: trial_info.forced_choice.length,
     // name should be identical to the variable name
     name: 'forced_choice_2A',
-    data: part_one_trial_info.forced_choice
+    data: trial_info.forced_choice
 });
-
-// Here, we initialize a forced_choice view with a custom view template
-// We added our custom css style custom-border, to the view template
-const forced_choice_custom_view_template = babeViews.view_generator(
-    "forced_choice",
-    {
-        // This will use all trials specified in `data`, you can user a smaller value (for testing), but not a larger value
-        trials: part_one_trial_info.forced_choice.length,
-        // name should be identical to the variable name
-        name: 'forced_choice_custom_view_template',
-        data: part_one_trial_info.forced_choice
-    },
-    {
-        stimulus_container_generator: function (config, CT) {
-        return `<div class='babe-view'>
-                    <h1 class='babe-view-title'>${config.title}</h1>
-                    <h1 class='babe-view-title custom-border'>Brand new <span style="color:darkred">silly title</span>!</h1>
-                    <p class='babe-view-question babe-view-qud'>${config.data[CT].QUD}</p>
-                    <div class='babe-view-stimulus-container'>
-                        <div class='babe-view-stimulus babe-nodisplay'></div>
-                    </div>
-                    </div>`;
-        }
-    }
-);
-
-// Here, we initialize a forced_choice view with a custom answer container
-// We added an additional title above the question
-const forced_choice_custom_answer_container = babeViews.view_generator(
-    "forced_choice",
-    {
-        // This will use all trials specified in `data`, you can user a smaller value (for testing), but not a larger value
-        trials: part_one_trial_info.forced_choice.length,
-        // name should be identical to the variable name
-        name: 'forced_choice_custom_answer_container',
-        data: part_one_trial_info.forced_choice
-    },
-    {
-        answer_container_generator:  function (config, CT) {
-            return `<div class='babe-view-answer-container'>
-                    <h1 class='babe-view-title'>Question:</h1>
-                    <p class='babe-view-question'>${config.data[CT].question}</p>
-                    <label for='o1' class='babe-response-buttons'>${config.data[CT].option1}</label>
-                    <input type='radio' name='answer' id='o1' value=${config.data[CT].option1} />
-                    <input type='radio' name='answer' id='o2' value=${config.data[CT].option2} />
-                    <label for='o2' class='babe-response-buttons'>${config.data[CT].option2}</label>
-                    <input type='radio' name='answer' id='o3' value='A new third option!' />
-                    <label for='o3' class='babe-response-buttons'>A new third option!</label>
-                </div>`;
-        }
-    }
-);
-
-// Here, we initialize a normal keyPress task
-const key_press = babeViews.view_generator("key_press",{
-    trials: 2,
-    name: 'key_press',
-    // We can also make use of the trial life cycles, e.g. to introduce a blank screen and a fixation point
-    pause: 1000,
-    fix_duration: 1500,
-    // It is also possiblle, to define the trial data here, but this quickly gets confusing
-    // The trial data is an array and every entry is an object with all necessary information for one trial
-    data: [{key1: "f",
-           key2: "j",
-           f: "circle",
-           j: "square",
-           expected: "circle",
-           // You can make use of our canvas API to create some stimuli
-           canvas: {
-               focalColor: 'blue',
-               focalShape: 'circle',
-               focalNumber: 1,
-               sort: 'random',
-               elemSize: 100,
-               total: 1
-          }},
-       {key1: "f",
-           key2: "j",
-           f: "circle",
-           j: "square",
-           expected: "circle",
-           canvas: {
-               focalColor: 'yellow',
-               focalShape: 'square',
-               focalNumber: 10,
-               sort: 'random',
-               elemSize: 30,
-               total: 10
-          }}]
-});
-
-// Here we initialize a customized multi dropdown task,
-// using a custom view_template, answer_container_element and enable_response function
-const multi_dropdown = babeViews.view_generator("forced_choice",
-    {trials: part_two_trial_info.multi_dropdown.length,
-    title: "Complete the sentence",
-    QUD: "Choose one option for each missing word in this sentence.",
-    name: 'multi_dropdown',
-    // You can also randomize (shuffle) the trials of a view
-    data: _.shuffle(part_two_trial_info.multi_dropdown),
-    // There is the possibility to add hooks after different events in the trials life cycle
-    // after_pause, after_fix_point, after_stim_shown, after_stim_hidden, after_response_enabled
-    hook: {after_response_enabled: time_limit}},
-    // We add our custom generators here
-    {stimulus_container_generator: multi_dropdown_gens.stimulus_container_gen,
-    answer_container_generator: multi_dropdown_gens.answer_container_gen,
-    handle_response_function: multi_dropdown_gens.handle_response_function}
-);
 
 // There are many more templates available:
-// forcedChoice, sliderRating, dropdownChoice, testboxInput, ratingScale, imageSelection, sentenceChoice, keyPress, selfPacedReading and selfPacedReading_ratingScale
-
-// Here we initialize our full custom views
-
-// First, we will initialize our custom press a button view
-const button_click = custom_press_a_button({
-    name: "button_click",
-    trials: 2
-});
-
-// This is a view, were you have to continue until you click on the correct button
-const button_until = custom_press_correct_button({
-    name: "button_until",
-    trials: 3,
-    data: [
-        {
-            target: "first"
-        },
-        {
-           target: "second"
-        },
-        {
-            target: "second"
-        }]
-});
-
-// Test of all remaining view types (move to Showroom or similar after the restructuring is finished)
-const begin = babeViews.view_generator("begin",{
-    trials: 1,
-    name: 'begin',
-    text:  `This is a sample begin view.
-            <br />
-            <br />
-            Tell your participants what they are to do here.`,
-    buttonText: 'go to trials'
-});
-
-const dropdown_choice = babeViews.view_generator("dropdown_choice",{
-    trials: 3,
-    name: 'dropdown_choice',
-    data: main_trials.dropdownChoice
-});
-
-const sentence_choice = babeViews.view_generator("sentence_choice", {
-    trials: 2,
-    name: 'sentence_choice',
-    data: main_trials.sentenceChoice
-});
-
-const image_selection = babeViews.view_generator("image_selection",{
-    trials: 2,
-    name: 'image_selection',
-    data: main_trials.imageSelection
-});
-
-const textbox_input = babeViews.view_generator("textbox_input",{
-    trials: 2,
-    name: 'textbox_input',
-    data: main_trials.textboxInput,
-    pause: 500,
-    stim_duration: 'space'
-});
-
-// part of the trial flow sample
-const slider_rating = babeViews.view_generator("slider_rating",{
-    trials: 3,
-    name: 'slider_rating',
-    data: main_trials.sliderRating,
-    pause: 500,
-    fix_duration: 1000,
-    stim_duration: 1500
-});
-
-// part of the hooks and custom events sample
-const rating_scale = babeViews.view_generator("rating_scale",{
-    trials: 2,
-    name: 'rating_scale',
-    data: main_trials.ratingScale,
-    fix_duration: 500,
-    stim_duration: 'space',
-    hook: {
-        after_stim_shown: myEvents.timeShown,
-        after_stim_hidden: myEvents.timeHidden
-    }
-});
-
-const spr = babeViews.view_generator("self_paced_reading",{
-    trials: 4,
-    name: 'spr',
-    data: main_trials.spr,
-    pause: 300,
-    fix_duration: 500,
-    stim_duration: 1000
-});
-
-const spr_rating_scale = babeViews.view_generator("self_paced_reading_rating_scale",{
-    trials: 2,
-    name: 'spr_rating_scale',
-    data: main_trials.spr_rs,
-});
+// forced_choice, slider_rating, dropdown_choice, testbox_input, rating_scale, image_selection, sentence_choice,
+// key_press, self_paced_reading and self_paced_reading_rating_scale
