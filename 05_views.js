@@ -1,5 +1,5 @@
 // In this file you can instantiate your views
-// First instantiate your wrapping views, then you can instantiate your trial views
+// We here first instantiate wrapping views, then the trial views
 
 
 /** Wrapping views below
@@ -14,7 +14,7 @@
     * text: string - the text to be displayed in this view
     * title: string - the title of this view
 
-* More about the properties and functions of the wrapping views - https://github.com/babe-project/babe-project/blob/master/docs/views.md#wrapping-views-properties
+    * More about the properties and functions of the wrapping views - https://babe-project.github.io/babe-docs/01_designing_experiments/01_template_views/#wrapping-views
 
 */
 
@@ -92,17 +92,26 @@ const thanks = babeViews.view_generator("thanks", {
     - pause: number (in ms) - blank screen before the fixation point or stimulus show
     - fix_duration: number (in ms) - blank screen with fixation point in the middle
     - stim_duration: number (in ms) - for how long to have the stimulus on the screen
-        More about trial life cycle - https://github.com/babe-project/babe-project/blob/master/docs/views.md#trial-views-lifecycle
+      More about trial life cycle - https://babe-project.github.io/babe-docs/01_designing_experiments/04_lifecycles_hooks/
 
     - hook: object - option to hook and add custom functions to the view
-        More about hooks - https://github.com/babe-project/babe-project/blob/master/docs/views.md#trial-views-hooks
+      More about hooks - https://babe-project.github.io/babe-docs/01_designing_experiments/04_lifecycles_hooks/
 
-* All about the properties of trial - https://github.com/babe-project/babe-project/blob/master/docs/views.md#properties-of-trial
+* All about the properties of trial views
+* https://babe-project.github.io/babe-docs/01_designing_experiments/01_template_views/#trial-views
 */
 
 
 // Here, we initialize a normal forced_choice view
 const forced_choice_2A = babeViews.view_generator("forced_choice", {
+    // This will use all trials specified in `data`, you can user a smaller value (for testing), but not a larger value
+    trials: trial_info.forced_choice.length,
+    // name should be identical to the variable name
+    name: 'forced_choice_2A',
+    data: trial_info.forced_choice
+});
+
+const forced_choice_2A_MF = babeViews.view_generator("forced_choice", {
     // This will use all trials specified in `data`, you can user a smaller value (for testing), but not a larger value
     trials: trial_info.forced_choice.length,
     // name should be identical to the variable name
