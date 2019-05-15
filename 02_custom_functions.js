@@ -4,7 +4,7 @@
 *
 *
 */
-const coin = _.sample(["head", "tail"]); // You can flip a coin for your experiment here
+const coin = _.sample(["head", "tail"]); // You can determine global (random) parameters here
 // Declare your variables here
 
 
@@ -13,6 +13,7 @@ const coin = _.sample(["head", "tail"]); // You can flip a coin for your experim
 *
 *
 */
+
 
 /* For generating random participant IDs */
     // https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
@@ -35,7 +36,7 @@ const generateID = function(len) {
 *
 */
 
-//Error feedback if participants exceeds the time for responding
+// Error feedback if participants exceeds the time for responding
 const time_limit = function(data, next) {
     if (typeof window.timeout === 'undefined'){
         window.timeout = [];
@@ -47,4 +48,12 @@ const time_limit = function(data, next) {
     }, 5000));
     next();
 };
+
+
 // Declare your hooks here
+
+
+/* Generators for custom view templates, answer container elements and enable response functions
+*
+*
+*/

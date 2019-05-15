@@ -23,10 +23,11 @@ You can have a look at the experiment [here](https://departure-point.netlify.com
 ### Changing the `departure point` to your own experiment
 
 - Usually, you might just want to manipulate the following files:
-	- `01_custom_functions.js` :: (optional) contains custom functions, variables and hooks (e.g. a global coin flip)
-	- `02_custom_views_templates.js` :: (optional) contains user-defined special-purpose view templates (only needed, if the provided view templates are not enough for your experiment)
-	- `03_trials.js` :: (optional) contains the data of different trials of a task (e.g., names of pictures, test sentences, questions, etc.)
-	- `04_views.js` :: defines the different kinds of tasks, or, more generally, anything users will engage with on the screen
-	- `05_main.js` :: contains the experiment structure and general information about deployment
+    - `01_custom_styles.css` :: (optional) contains custom styles
+	- `02_custom_functions.js` :: (optional) contains custom functions, variables and hooks (e.g. a global coin flip)
+	- `03_custom_views_templates.js` :: (optional) contains user-defined special-purpose view templates (only needed, if the provided view templates are not enough for your experiment)
+	- `04_trials.js` :: (optional) contains the data of different trials of a task (e.g., names of pictures, test sentences, questions, etc.)
+	- `05_views.js` :: defines the different kinds of tasks, or, more generally, anything users will engage with on the screen
+	- `06_main.js` :: contains the experiment structure and general information about deployment
 - The numbering of the files is important, you can use the functions defined in `01` in `04`, but you can't use some variable from `05` in `02`
 
