@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "babe-project": "~0.0.27"
+    "babe-project": "~0.1.0"
   }
 }

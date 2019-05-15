@@ -70,6 +70,15 @@ $("document").ready(function() {
              // Possible styles are "default", "separate" and "chunks"
             style: "separate",
             width: 100
+        },
+        timer: {
+            // Defaults:
+            minutes: 1, // How many minutes the timer should run
+            // show_info_time: 0.2, // Percentage of time left, after which the user gets informed
+            // snack_text: "Still here?", // Text on the information bar
+            // show_info_time_time: true, // Also show the remaining time on the bar
+            // new_title: "Still here?", // New page title that is flashed
+            // end_function: function() {location.reload(true)} // Function that is invoked after timeout (page refresh)
         }
     });
 });

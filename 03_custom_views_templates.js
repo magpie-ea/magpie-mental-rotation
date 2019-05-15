@@ -38,7 +38,7 @@ const custom_press_a_button = function(config) {
                     response: e.target.id
                 };
                 // Often it makes sense to also save the config information
-                // trial_data = save_config_trial_data(config.data[CT], trial_data);
+                // trial_data = babeUtils.view.save_config_trial_data(config.data[CT], trial_data);
 
                 // Here, we save the trial_data
                 babe.trial_data.push(trial_data);
@@ -93,7 +93,7 @@ const custom_press_correct_button = function(config) {
                             repetitions: times
                         };
                         // Often it makes sense to also save the config information
-                        // trial_data = save_config_trial_data(config.data[CT], trial_data);
+                        // trial_data = babeUtils.view.save_config_trial_data(config.data[CT], trial_data);
 
                         // Here, we save the trial_data
                         babe.trial_data.push(trial_data);

@@ -151,7 +151,7 @@ const multi_dropdown_gens = {
                 RT: RT
             };
 
-            trial_data = save_config_trial_data(config.data[CT], trial_data);
+            trial_data = babeUtils.view.save_config_trial_data(config.data[CT], trial_data);
 
             babe.trial_data.push(trial_data);
             babe.findNextView();
