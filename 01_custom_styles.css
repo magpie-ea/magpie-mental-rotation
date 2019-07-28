@@ -1,14 +1,14 @@
-/* In this file you can overwrite/extend the given babe-styles or declare your own ones */
+/* In this file you can overwrite/extend the given magpie-styles or declare your own ones */
 
-/* Example of extending a given babe-style */
+/* Example of extending a given magpie-style */
 
-/*.babe-view-stimulus-container {
+/*.magpie-view-stimulus-container {
     height: auto;
     max-height: 350px;
 } */
 
 /* Display all titles in red */
-/*.babe-view-title {
+/*.magpie-view-title {
     color: red;
 }*/
 

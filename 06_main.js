@@ -1,4 +1,4 @@
-// In this file you initialize and configure your experiment using babeInit
+// In this file you initialize and configure your experiment using magpieInit
 
 $("document").ready(function() {
     // prevent scrolling when space is pressed
@@ -8,11 +8,11 @@ $("document").ready(function() {
         }
     };
 
-    // calls babeInit
-    // in debug mode this returns the babe-object, which you can access in the console of your browser
-    // e.g. >> window.babe_monitor or window.babe_monitor.findNextView()
+    // calls magpieInit
+    // in debug mode this returns the magpie-object, which you can access in the console of your browser
+    // e.g. >> window.magpie_monitor or window.magpie_monitor.findNextView()
     // in all other modes null will be returned
-    window.babe_monitor = babeInit({
+    window.magpie_monitor = magpieInit({
         // You have to specify all views you want to use in this experiment and the order of them
         views_seq: [
             intro,
@@ -24,7 +24,7 @@ $("document").ready(function() {
         // Here, you can specify all information for the deployment
         deploy: {
             experimentID: "INSERT_A_NUMBER",
-            serverAppURL: "https://babe-demo.herokuapp.com/api/submit_experiment/",
+            serverAppURL: "https://magpie-demo.herokuapp.com/api/submit_experiment/",
             // Possible deployment methods are:
             // "debug" and "directLink"
             // As well as "MTurk", "MTurkSandbox" and "Prolific"
