@@ -11,8 +11,8 @@ You can have a look at the experiment [here](https://departure-point.netlify.com
 ### Obtaining the `departure point`
 
 1. install npm by following these [instructions](https://www.npmjs.com/get-npm)
-2. download or clone this github repository: https://github.com/magpie-project/departure-point
-   - e.g. type `git clone https://github.com/magpie-project/departure-point.git`
+2. download or clone this github repository: https://github.com/magpie-ea/magpie-departure-point
+   - e.g. type `git clone https://github.com/magpie-ea/magpie-departure-point.git`
 3. change the folder name `departure-point` to whatever you like
    - let's say you call is `my-exp`, e.g. by typing `mv departure-point my-exp`
 4. go to your folder `my-exp`, e.g., by typing `cd my-exp`
