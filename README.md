@@ -29,4 +29,4 @@ You can have a look at the minimal example experiment [here](https://departure-p
 	- `04_trials.js` :: (optional) contains the data of different trials of a task (e.g. names of pictures, test sentences, questions, etc.)
 	- `05_views.js` :: defines the different kinds of tasks, or, more generally, anything users will engage with on the screen
 	- `06_main.js` :: contains the experiment structure and general information about deployment
-- The numbering of the files is important, you can use the functions defined in earlier files in later ones, but not the other way around; that means you can use functions defined in `01` in `04`, but you can't use some variable from `05` in `02`
+- The numbering of the files is important, you can use the functions defined in earlier files in later ones, but not the other way around; that means you can use functions defined in `01` in `04`, but you can't use some variable from `05` in `02`.
