@@ -16,9 +16,11 @@ $("document").ready(function() {
         // You have to specify all views you want to use in this experiment and the order of them
         views_seq: [
             intro,
-            instructions,
-            forced_choice_2A,
-            post_test,
+            instructions_practice,
+            practice,
+            instructions_main,
+            main,
+            postTest,
             thanks,
         ],
         // Here, you can specify all information for the deployment
@@ -36,7 +38,8 @@ $("document").ready(function() {
         progress_bar: {
             in: [
                 // list the view-names of the views for which you want a progress bar
-                forced_choice_2A.name,
+                practice.name,
+		main.name
             ],
              // Possible styles are "default", "separate" and "chunks"
             style: "separate",
